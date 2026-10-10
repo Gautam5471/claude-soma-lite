@@ -178,14 +178,14 @@ Two checks remain before launch:
       `d376e94` and `7a551a2` (two test comments).
 - [ ] Enable private vulnerability reporting on the new repository (§1c). Conduct reports arrive
       as draft security advisories: never publish one, and never request a CVE for one.
-- [ ] Re-file anything still useful from the private repository's issues as new public issues,
-      without the private details.
+- [x] Re-file anything still useful from the private repository's issues as new public issues,
+      without the private details. Done: the known issues are filed as GitHub issues #1-#29, and the
+      credential-path weakness as a draft security advisory.
 - [ ] If the new repository's owner or name differs, update every link that names
       `github.com/techfreakworm/claude-soma-lite`.
-- [ ] Optional: GitHub does not play a video committed to the repository inline in a README. For an
-      inline player, drag `docs/media/showcase.mp4` into `README.md` in GitHub's web editor, which
-      uploads it as a user-attachments URL. The README links the committed MP4 from the GIF
-      either way.
+- [x] GitHub does not play a video committed to the repository inline in a README, so the README
+      embeds an uploaded copy of `docs/media/showcase.mp4` (a user-attachments URL) and links the
+      committed MP4 as a fallback.
 - [x] `LICENSE`, the licence badge, the README's *License* and *Not affiliated with Anthropic*
       sections, and the licence and sign-off section of `CONTRIBUTING.md` are on this branch.
 - [x] Add `"license": "MIT"` to `package.json`, a code follow-up (Appendix B). Done in `c811627`.

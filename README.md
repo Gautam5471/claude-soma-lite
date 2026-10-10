@@ -9,9 +9,9 @@ its own Claude Code lead, tmux session and git worktree, and comes back as a dra
 [![Tests: 1,300+ on node:test](https://img.shields.io/badge/tests-1%2C300%2B%20node%3Atest-blue)](test/)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
-[![Demo, recreated from real soma output in a time-lapsed sandbox run: a Claude Code session is promoted to orchestrator with /soma-promote and given four tasks; soma starts one lead per task, and each lead picks a harness that sets its budget; the leads report progress, one asks a question that the user answers, and all four end done with draft PRs ready for review](docs/media/showcase.gif)](docs/media/showcase.mp4)
+https://github.com/user-attachments/assets/faa84ab4-b283-451e-9040-ecce88935d9e
 
-*Click the animation for the full 88-second film (MP4): the same story, then a "For developers" section of real captured output. [How the video was made](docs/media/README.md).*
+*The 88-second film: a plain-language story of soma in action, then a "For developers" section of real captured output. If the player does not load, [download the MP4](docs/media/showcase.mp4). [How the video was made](docs/media/README.md).*
 
 > **Status: pre-release (0.1.0). Supervised use only.**
 > soma starts Claude Code sessions that run unattended in your repositories with permission
@@ -736,6 +736,8 @@ lists them. Four matter most:
 - **`crossSeatResume`**, if you use seats: one real rotation, observed end to end.
 
 ## Known limitations
+
+Every known bug and gap is tracked as a [GitHub issue](https://github.com/techfreakworm/claude-soma-lite/issues). The list below is the short version.
 
 Named so that you meet them here rather than in a running fleet. RUNBOOK §9 and §11 have the
 details.
