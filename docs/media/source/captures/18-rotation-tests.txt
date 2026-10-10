@@ -1,0 +1,14 @@
+✔ pick: soma.json order beats recency — the first seat wins although its closure is the NEWER (5.75625ms)
+✔ seat_window: close the seat, kill, and resume under the picked seat — attempts untouched (9.589458ms)
+✔ no open seat: nothing is killed, and ROTATION_UNAVAILABLE is said once per closure, not once per tick (1.851916ms)
+✔ a target that is not logged in is marked unverified and skipped for the next open seat; null (unreadable) is skipped too (1.787667ms)
+✔ three rotations inside an hour is thrash: nothing is killed and ROTATION_UNAVAILABLE says so; with one aged out the lead rotates (1.5875ms)
+✔ spend_cap through the REAL classifier: the freeze file gets all four fields, BACKPRESSURE fires once, nothing is killed or closed, and admission is shut this tick (1.475792ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 6
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 50.249541

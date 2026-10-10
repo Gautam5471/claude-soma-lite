@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Report a security vulnerability
+    url: https://github.com/techfreakworm/claude-soma-lite/security/advisories/new
+    about: Report a way past a guardrail privately. Do not open a public issue. See SECURITY.md first.
+  - name: Security policy
+    url: https://github.com/techfreakworm/claude-soma-lite/blob/main/SECURITY.md
+    about: What is in scope, and how to tell a declared residual from a new vulnerability.
+  - name: Operator runbook
+    url: https://github.com/techfreakworm/claude-soma-lite/blob/main/RUNBOOK.md
+    about: Install, operate, troubleshoot (§12), and what is not guaranteed (§11).

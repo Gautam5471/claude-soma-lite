@@ -1,0 +1,966 @@
+[
+  {
+    "who": "orchestrator",
+    "what": "tools/list (candidate)",
+    "result": [
+      "soma_adopt",
+      "soma_status"
+    ]
+  },
+  {
+    "who": "orchestrator",
+    "what": "soma_adopt {}",
+    "result": {
+      "adopted": true,
+      "lease_seq": 1,
+      "wake": "notify",
+      "degraded_wake": true,
+      "forced": false,
+      "stolen_from": null,
+      "demoted_notice": null,
+      "unread_count": 0,
+      "session_id_source": "soma-env"
+    }
+  },
+  {
+    "who": "orchestrator",
+    "what": "tools/list (after adopt)",
+    "result": [
+      "soma_adopt",
+      "soma_status",
+      "soma_release",
+      "soma_enqueue",
+      "soma_queue",
+      "soma_spawn",
+      "soma_inbox",
+      "soma_send",
+      "soma_kill",
+      "soma_resume",
+      "soma_transcript",
+      "soma_digest"
+    ]
+  },
+  {
+    "who": "orchestrator",
+    "what": "soma_enqueue {tasks}",
+    "args": {
+      "tasks": [
+        "fix-login-bug",
+        "add-rate-limit",
+        "docs-quickstart",
+        "estimate-sso"
+      ]
+    },
+    "result": {
+      "queued": [
+        "fix-login-bug",
+        "add-rate-limit",
+        "docs-quickstart",
+        "estimate-sso"
+      ],
+      "skipped": []
+    }
+  },
+  {
+    "who": "sandbox",
+    "what": "fleet.setTaskStatus(id, \"spawned\") for each task",
+    "result": [
+      "fix-login-bug",
+      "add-rate-limit",
+      "docs-quickstart",
+      "estimate-sso"
+    ]
+  },
+  {
+    "who": "lead fix-login-bug",
+    "what": "soma_report STARTED",
+    "args": {
+      "type": "STARTED",
+      "payload": {
+        "summary": "picked up; reading src/login.js and its test"
+      }
+    },
+    "result": {
+      "stored_id": "1791611150189-0000",
+      "delivered": true,
+      "clamped": false
+    }
+  },
+  {
+    "who": "lead add-rate-limit",
+    "what": "soma_report STARTED",
+    "args": {
+      "type": "STARTED",
+      "payload": {
+        "summary": "picked up; reading the login path"
+      }
+    },
+    "result": {
+      "stored_id": "1791611150190-0000",
+      "delivered": true,
+      "clamped": false
+    }
+  },
+  {
+    "who": "lead docs-quickstart",
+    "what": "soma_report STARTED",
+    "args": {
+      "type": "STARTED",
+      "payload": {
+        "summary": "picked up; reading the README"
+      }
+    },
+    "result": {
+      "stored_id": "1791611150191-0000",
+      "delivered": true,
+      "clamped": false
+    }
+  },
+  {
+    "who": "lead estimate-sso",
+    "what": "soma_report STARTED",
+    "args": {
+      "type": "STARTED",
+      "payload": {
+        "summary": "picked up; mapping how login works today"
+      }
+    },
+    "result": {
+      "stored_id": "1791611150191-0000",
+      "delivered": true,
+      "clamped": false
+    }
+  },
+  {
+    "who": "lead fix-login-bug",
+    "what": "soma_report HARNESS",
+    "args": {
+      "type": "HARNESS",
+      "payload": {
+        "harness_id": "H3",
+        "budget_class": "iterate",
+        "max_iterations": 10,
+        "verify_command": "npm test",
+        "plan_summary": "A failing test for a capitalised username first, then make the check case-insensitive."
+      }
+    },
+    "result": {
+      "stored_id": "1791611150192-0000",
+      "delivered": true,
+      "clamped": false
+    }
+  },
+  {
+    "who": "lead add-rate-limit",
+    "what": "soma_report HARNESS",
+    "args": {
+      "type": "HARNESS",
+      "payload": {
+        "harness_id": "H2",
+        "budget_class": "iterate",
+        "max_iterations": 10,
+        "verify_command": "npm test",
+        "plan_summary": "Add the failure counter and the 60 s lockout, iterating until npm test is green."
+      }
+    },
+    "result": {
+      "stored_id": "1791611150193-0000",
+      "delivered": true,
+      "clamped": false
+    }
+  },
+  {
+    "who": "lead docs-quickstart",
+    "what": "soma_report HARNESS",
+    "args": {
+      "type": "HARNESS",
+      "payload": {
+        "harness_id": "H1",
+        "budget_class": "standard",
+        "max_iterations": 1,
+        "verify_command": "a reviewer follows it on a clean clone",
+        "plan_summary": "Write the five steps in one pass; a verifier follows them on a clean clone."
+      }
+    },
+    "result": {
+      "stored_id": "1791611150193-0000",
+      "delivered": true,
+      "clamped": false
+    }
+  },
+  {
+    "who": "lead estimate-sso",
+    "what": "soma_report HARNESS",
+    "args": {
+      "type": "HARNESS",
+      "payload": {
+        "harness_id": "H6",
+        "budget_class": "research",
+        "verify_command": "every claim has a source",
+        "plan_summary": "Read-only: the options, the risks and an estimate, as a report. No code."
+      }
+    },
+    "result": {
+      "stored_id": "1791611150194-0000",
+      "delivered": true,
+      "clamped": false
+    }
+  },
+  {
+    "who": "orchestrator",
+    "what": "soma_inbox {}",
+    "result": {
+      "events": [
+        {
+          "id": "1791611150189-0000",
+          "ts": 1791611150189,
+          "type": "STARTED",
+          "payload": {
+            "summary": "picked up; reading src/login.js and its test"
+          },
+          "lead": "fix-login-bug"
+        },
+        {
+          "id": "1791611150190-0000",
+          "ts": 1791611150190,
+          "type": "STARTED",
+          "payload": {
+            "summary": "picked up; reading the login path"
+          },
+          "lead": "add-rate-limit"
+        },
+        {
+          "id": "1791611150191-0000",
+          "ts": 1791611150191,
+          "type": "STARTED",
+          "payload": {
+            "summary": "picked up; reading the README"
+          },
+          "lead": "docs-quickstart"
+        },
+        {
+          "id": "1791611150191-0000",
+          "ts": 1791611150191,
+          "type": "STARTED",
+          "payload": {
+            "summary": "picked up; mapping how login works today"
+          },
+          "lead": "estimate-sso"
+        },
+        {
+          "id": "1791611150192-0000",
+          "ts": 1791611150192,
+          "type": "HARNESS",
+          "payload": {
+            "harness_id": "H3",
+            "budget_class": "iterate",
+            "max_iterations": 10,
+            "verify_command": "npm test",
+            "plan_summary": "A failing test for a capitalised username first, then make the check case-insensitive."
+          },
+          "lead": "fix-login-bug"
+        },
+        {
+          "id": "1791611150193-0000",
+          "ts": 1791611150193,
+          "type": "HARNESS",
+          "payload": {
+            "harness_id": "H2",
+            "budget_class": "iterate",
+            "max_iterations": 10,
+            "verify_command": "npm test",
+            "plan_summary": "Add the failure counter and the 60 s lockout, iterating until npm test is green."
+          },
+          "lead": "add-rate-limit"
+        },
+        {
+          "id": "1791611150193-0000",
+          "ts": 1791611150193,
+          "type": "HARNESS",
+          "payload": {
+            "harness_id": "H1",
+            "budget_class": "standard",
+            "max_iterations": 1,
+            "verify_command": "a reviewer follows it on a clean clone",
+            "plan_summary": "Write the five steps in one pass; a verifier follows them on a clean clone."
+          },
+          "lead": "docs-quickstart"
+        },
+        {
+          "id": "1791611150194-0000",
+          "ts": 1791611150194,
+          "type": "HARNESS",
+          "payload": {
+            "harness_id": "H6",
+            "budget_class": "research",
+            "verify_command": "every claim has a source",
+            "plan_summary": "Read-only: the options, the risks and an estimate, as a report. No code."
+          },
+          "lead": "estimate-sso"
+        }
+      ],
+      "returned": 8,
+      "remaining": 0,
+      "marked_read": true,
+      "folded": 4,
+      "terminal": 0
+    }
+  },
+  {
+    "who": "orchestrator",
+    "what": "soma_status {}",
+    "result": {
+      "leads": [
+        {
+          "lead": "fix-login-bug",
+          "task_id": "fix-login-bug",
+          "title": "Login rejects usernames typed with capital letters",
+          "repo": "demo-app",
+          "status": "spawned",
+          "liveness": "alive",
+          "pane_state": "unrecognised",
+          "pane_fine": "unrecognised",
+          "pane_kind": null,
+          "pane_cmd": "cat",
+          "pane_state_source": "live",
+          "pane_state_age_ms": null,
+          "seat": null,
+          "rotations_last_hour": 0,
+          "harness": "H3",
+          "budget_class": "iterate",
+          "turns": null,
+          "est_tokens": null,
+          "budget_pct": null,
+          "model": null,
+          "heartbeat_age_ms": null,
+          "attempts": 0,
+          "pr_url": null,
+          "tmux_target": "lead-fix-login-bug",
+          "team": [
+            {
+              "title": "demo lead pane",
+              "dead": false
+            }
+          ]
+        },
+        {
+          "lead": "add-rate-limit",
+          "task_id": "add-rate-limit",
+          "title": "Lock an account for 60 s after 5 failed logins",
+          "repo": "demo-app",
+          "status": "spawned",
+          "liveness": "absent",
+          "pane_state": "absent",
+          "pane_fine": "absent",
+          "pane_kind": null,
+          "pane_cmd": null,
+          "pane_state_source": "live",
+          "pane_state_age_ms": null,
+          "seat": null,
+          "rotations_last_hour": 0,
+          "harness": "H2",
+          "budget_class": "iterate",
+          "turns": null,
+          "est_tokens": null,
+          "budget_pct": null,
+          "model": null,
+          "heartbeat_age_ms": null,
+          "attempts": 0,
+          "pr_url": null,
+          "tmux_target": "lead-add-rate-limit",
+          "team": []
+        },
+        {
+          "lead": "docs-quickstart",
+          "task_id": "docs-quickstart",
+          "title": "Add a quickstart to the README",
+          "repo": "demo-app",
+          "status": "spawned",
+          "liveness": "absent",
+          "pane_state": "absent",
+          "pane_fine": "absent",
+          "pane_kind": null,
+          "pane_cmd": null,
+          "pane_state_source": "live",
+          "pane_state_age_ms": null,
+          "seat": null,
+          "rotations_last_hour": 0,
+          "harness": "H1",
+          "budget_class": "standard",
+          "turns": null,
+          "est_tokens": null,
+          "budget_pct": null,
+          "model": null,
+          "heartbeat_age_ms": null,
+          "attempts": 0,
+          "pr_url": null,
+          "tmux_target": "lead-docs-quickstart",
+          "team": []
+        },
+        {
+          "lead": "estimate-sso",
+          "task_id": "estimate-sso",
+          "title": "Estimate the work to add single sign-on",
+          "repo": "demo-app",
+          "status": "spawned",
+          "liveness": "absent",
+          "pane_state": "absent",
+          "pane_fine": "absent",
+          "pane_kind": null,
+          "pane_cmd": null,
+          "pane_state_source": "live",
+          "pane_state_age_ms": null,
+          "seat": null,
+          "rotations_last_hour": 0,
+          "harness": "H6",
+          "budget_class": "research",
+          "turns": null,
+          "est_tokens": null,
+          "budget_pct": null,
+          "model": null,
+          "heartbeat_age_ms": null,
+          "attempts": 0,
+          "pr_url": null,
+          "tmux_target": "lead-estimate-sso",
+          "team": []
+        }
+      ],
+      "rows_omitted": 0,
+      "queue": [],
+      "counts": {
+        "spawned": 4
+      },
+      "queue_paused": false,
+      "backpressure": {
+        "active": false,
+        "reason": null,
+        "since": null,
+        "until": null
+      },
+      "seats": {
+        "configured": 0,
+        "open": [],
+        "closed": [],
+        "unverified": [],
+        "unreadable": false
+      },
+      "watchdog_alive": false,
+      "lease": {
+        "session_id": "orch-demo",
+        "tmux_pane": null,
+        "tmux_socket": null,
+        "wake": "notify",
+        "lease_seq": 1,
+        "heartbeat_age_ms": 205
+      },
+      "lease_stale": false
+    }
+  },
+  {
+    "who": "lead fix-login-bug",
+    "what": "soma_report MILESTONE",
+    "args": {
+      "type": "MILESTONE",
+      "payload": {
+        "summary": "failing test for a capitalised username committed"
+      }
+    },
+    "result": {
+      "stored_id": "1791611150210-0000",
+      "delivered": true,
+      "clamped": false
+    }
+  },
+  {
+    "who": "lead add-rate-limit",
+    "what": "soma_report MILESTONE",
+    "args": {
+      "type": "MILESTONE",
+      "payload": {
+        "summary": "failure counter in place; lockout next"
+      }
+    },
+    "result": {
+      "stored_id": "1791611150210-0000",
+      "delivered": true,
+      "clamped": false
+    }
+  },
+  {
+    "who": "lead docs-quickstart",
+    "what": "soma_report MILESTONE",
+    "args": {
+      "type": "MILESTONE",
+      "payload": {
+        "summary": "quickstart drafted; verifier following it on a clean clone"
+      }
+    },
+    "result": {
+      "stored_id": "1791611150211-0000",
+      "delivered": true,
+      "clamped": false
+    }
+  },
+  {
+    "who": "lead estimate-sso",
+    "what": "soma_report MILESTONE",
+    "args": {
+      "type": "MILESTONE",
+      "payload": {
+        "summary": "three options mapped"
+      }
+    },
+    "result": {
+      "stored_id": "1791611150211-0000",
+      "delivered": true,
+      "clamped": false
+    }
+  },
+  {
+    "who": "lead fix-login-bug",
+    "what": "soma_report NEEDS_INPUT",
+    "args": {
+      "type": "NEEDS_INPUT",
+      "payload": {
+        "question": "Store usernames lowercased, or only compare case-insensitively at login?",
+        "options": [
+          "lowercase stored usernames",
+          "compare case-insensitively at login"
+        ],
+        "recommendation": "compare at login and leave stored data alone"
+      }
+    },
+    "result": {
+      "stored_id": "1791611150211-0000",
+      "delivered": true,
+      "clamped": false
+    }
+  },
+  {
+    "who": "orchestrator",
+    "what": "soma_inbox {}",
+    "result": {
+      "events": [
+        {
+          "id": "1791611150210-0000",
+          "ts": 1791611150210,
+          "type": "MILESTONE",
+          "payload": {
+            "summary": "failing test for a capitalised username committed"
+          },
+          "lead": "fix-login-bug"
+        },
+        {
+          "id": "1791611150210-0000",
+          "ts": 1791611150210,
+          "type": "MILESTONE",
+          "payload": {
+            "summary": "failure counter in place; lockout next"
+          },
+          "lead": "add-rate-limit"
+        },
+        {
+          "id": "1791611150211-0000",
+          "ts": 1791611150211,
+          "type": "NEEDS_INPUT",
+          "payload": {
+            "question": "Store usernames lowercased, or only compare case-insensitively at login?",
+            "options": [
+              "lowercase stored usernames",
+              "compare case-insensitively at login"
+            ],
+            "recommendation": "compare at login and leave stored data alone"
+          },
+          "lead": "fix-login-bug"
+        },
+        {
+          "id": "1791611150211-0000",
+          "ts": 1791611150211,
+          "type": "MILESTONE",
+          "payload": {
+            "summary": "quickstart drafted; verifier following it on a clean clone"
+          },
+          "lead": "docs-quickstart"
+        },
+        {
+          "id": "1791611150211-0000",
+          "ts": 1791611150211,
+          "type": "MILESTONE",
+          "payload": {
+            "summary": "three options mapped"
+          },
+          "lead": "estimate-sso"
+        }
+      ],
+      "returned": 5,
+      "remaining": 0,
+      "marked_read": true,
+      "folded": 0,
+      "terminal": 0
+    }
+  },
+  {
+    "who": "orchestrator",
+    "what": "soma_send {lead: fix-login-bug}",
+    "args": {
+      "lead": "fix-login-bug",
+      "message": "Compare at login. Leave stored usernames alone."
+    },
+    "result": {
+      "delivered": true,
+      "clamped": false,
+      "chars": 47,
+      "tmux_target": "lead-fix-login-bug",
+      "pane_state": "unrecognised",
+      "pane_fine": "unrecognised",
+      "pane_kind": null,
+      "warning": "the pane was read but its screen matched no known Claude Code state (unrecognised); typed anyway"
+    }
+  },
+  {
+    "who": "lead fix-login-bug",
+    "what": "soma_report MILESTONE",
+    "args": {
+      "type": "MILESTONE",
+      "payload": {
+        "summary": "login compares case-insensitively; npm test green"
+      }
+    },
+    "result": {
+      "stored_id": "1791611150225-0000",
+      "delivered": true,
+      "clamped": false
+    }
+  },
+  {
+    "who": "lead add-rate-limit",
+    "what": "soma_report MILESTONE",
+    "args": {
+      "type": "MILESTONE",
+      "payload": {
+        "summary": "lockout after 5 failures; npm test green"
+      }
+    },
+    "result": {
+      "stored_id": "1791611150225-0000",
+      "delivered": true,
+      "clamped": false
+    }
+  },
+  {
+    "who": "lead fix-login-bug",
+    "what": "soma_report COMPLETED",
+    "args": {
+      "type": "COMPLETED",
+      "payload": {
+        "summary": "usernames match case-insensitively at login; verifier approved",
+        "pr_url": "https://example.com/demo-app/pull/1",
+        "paths": [
+          "src/login.js",
+          "test/login.test.js"
+        ],
+        "followups": []
+      }
+    },
+    "result": {
+      "stored_id": "1791611150226-0000",
+      "delivered": true,
+      "clamped": false
+    }
+  },
+  {
+    "who": "lead add-rate-limit",
+    "what": "soma_report COMPLETED",
+    "args": {
+      "type": "COMPLETED",
+      "payload": {
+        "summary": "an account locks for 60 s after 5 failed logins; verifier approved",
+        "pr_url": "https://example.com/demo-app/pull/2",
+        "paths": [
+          "src/login.js",
+          "test/rate-limit.test.js"
+        ],
+        "followups": []
+      }
+    },
+    "result": {
+      "stored_id": "1791611150226-0000",
+      "delivered": true,
+      "clamped": false
+    }
+  },
+  {
+    "who": "lead docs-quickstart",
+    "what": "soma_report COMPLETED",
+    "args": {
+      "type": "COMPLETED",
+      "payload": {
+        "summary": "five-step quickstart; a verifier followed it on a clean clone",
+        "pr_url": "https://example.com/demo-app/pull/3",
+        "paths": [
+          "README.md"
+        ],
+        "followups": []
+      }
+    },
+    "result": {
+      "stored_id": "1791611150227-0000",
+      "delivered": true,
+      "clamped": false
+    }
+  },
+  {
+    "who": "lead estimate-sso",
+    "what": "soma_report COMPLETED",
+    "args": {
+      "type": "COMPLETED",
+      "payload": {
+        "summary": "report: the options, the risks and an estimate",
+        "pr_url": "https://example.com/demo-app/pull/4",
+        "paths": [
+          "docs/sso-estimate.md"
+        ],
+        "followups": []
+      }
+    },
+    "result": {
+      "stored_id": "1791611150228-0000",
+      "delivered": true,
+      "clamped": false
+    }
+  },
+  {
+    "who": "orchestrator",
+    "what": "soma_inbox {}",
+    "result": {
+      "events": [
+        {
+          "id": "1791611150225-0000",
+          "ts": 1791611150225,
+          "type": "MILESTONE",
+          "payload": {
+            "summary": "login compares case-insensitively; npm test green"
+          },
+          "lead": "fix-login-bug"
+        },
+        {
+          "id": "1791611150225-0000",
+          "ts": 1791611150225,
+          "type": "MILESTONE",
+          "payload": {
+            "summary": "lockout after 5 failures; npm test green"
+          },
+          "lead": "add-rate-limit"
+        },
+        {
+          "id": "1791611150226-0000",
+          "ts": 1791611150226,
+          "type": "COMPLETED",
+          "payload": {
+            "summary": "usernames match case-insensitively at login; verifier approved",
+            "pr_url": "https://example.com/demo-app/pull/1",
+            "paths": [
+              "src/login.js",
+              "test/login.test.js"
+            ],
+            "followups": []
+          },
+          "lead": "fix-login-bug"
+        },
+        {
+          "id": "1791611150226-0000",
+          "ts": 1791611150226,
+          "type": "COMPLETED",
+          "payload": {
+            "summary": "an account locks for 60 s after 5 failed logins; verifier approved",
+            "pr_url": "https://example.com/demo-app/pull/2",
+            "paths": [
+              "src/login.js",
+              "test/rate-limit.test.js"
+            ],
+            "followups": []
+          },
+          "lead": "add-rate-limit"
+        },
+        {
+          "id": "1791611150227-0000",
+          "ts": 1791611150227,
+          "type": "COMPLETED",
+          "payload": {
+            "summary": "five-step quickstart; a verifier followed it on a clean clone",
+            "pr_url": "https://example.com/demo-app/pull/3",
+            "paths": [
+              "README.md"
+            ],
+            "followups": []
+          },
+          "lead": "docs-quickstart"
+        },
+        {
+          "id": "1791611150228-0000",
+          "ts": 1791611150228,
+          "type": "COMPLETED",
+          "payload": {
+            "summary": "report: the options, the risks and an estimate",
+            "pr_url": "https://example.com/demo-app/pull/4",
+            "paths": [
+              "docs/sso-estimate.md"
+            ],
+            "followups": []
+          },
+          "lead": "estimate-sso"
+        }
+      ],
+      "returned": 6,
+      "remaining": 0,
+      "marked_read": true,
+      "folded": 4,
+      "terminal": 4
+    }
+  },
+  {
+    "who": "orchestrator",
+    "what": "soma_status {}",
+    "result": {
+      "leads": [
+        {
+          "lead": "fix-login-bug",
+          "task_id": "fix-login-bug",
+          "title": "Login rejects usernames typed with capital letters",
+          "repo": "demo-app",
+          "status": "done",
+          "liveness": "not-running",
+          "pane_state": "unrecognised",
+          "pane_fine": "unrecognised",
+          "pane_kind": null,
+          "pane_cmd": "cat",
+          "pane_state_source": "live",
+          "pane_state_age_ms": null,
+          "seat": null,
+          "rotations_last_hour": 0,
+          "harness": "H3",
+          "budget_class": "iterate",
+          "turns": null,
+          "est_tokens": null,
+          "budget_pct": null,
+          "model": null,
+          "heartbeat_age_ms": null,
+          "attempts": 0,
+          "pr_url": "https://example.com/demo-app/pull/1",
+          "tmux_target": "lead-fix-login-bug",
+          "team": []
+        },
+        {
+          "lead": "add-rate-limit",
+          "task_id": "add-rate-limit",
+          "title": "Lock an account for 60 s after 5 failed logins",
+          "repo": "demo-app",
+          "status": "done",
+          "liveness": "not-running",
+          "pane_state": "absent",
+          "pane_fine": "absent",
+          "pane_kind": null,
+          "pane_cmd": null,
+          "pane_state_source": "live",
+          "pane_state_age_ms": null,
+          "seat": null,
+          "rotations_last_hour": 0,
+          "harness": "H2",
+          "budget_class": "iterate",
+          "turns": null,
+          "est_tokens": null,
+          "budget_pct": null,
+          "model": null,
+          "heartbeat_age_ms": null,
+          "attempts": 0,
+          "pr_url": "https://example.com/demo-app/pull/2",
+          "tmux_target": "lead-add-rate-limit",
+          "team": []
+        },
+        {
+          "lead": "docs-quickstart",
+          "task_id": "docs-quickstart",
+          "title": "Add a quickstart to the README",
+          "repo": "demo-app",
+          "status": "done",
+          "liveness": "not-running",
+          "pane_state": "absent",
+          "pane_fine": "absent",
+          "pane_kind": null,
+          "pane_cmd": null,
+          "pane_state_source": "live",
+          "pane_state_age_ms": null,
+          "seat": null,
+          "rotations_last_hour": 0,
+          "harness": "H1",
+          "budget_class": "standard",
+          "turns": null,
+          "est_tokens": null,
+          "budget_pct": null,
+          "model": null,
+          "heartbeat_age_ms": null,
+          "attempts": 0,
+          "pr_url": "https://example.com/demo-app/pull/3",
+          "tmux_target": "lead-docs-quickstart",
+          "team": []
+        },
+        {
+          "lead": "estimate-sso",
+          "task_id": "estimate-sso",
+          "title": "Estimate the work to add single sign-on",
+          "repo": "demo-app",
+          "status": "done",
+          "liveness": "not-running",
+          "pane_state": "absent",
+          "pane_fine": "absent",
+          "pane_kind": null,
+          "pane_cmd": null,
+          "pane_state_source": "live",
+          "pane_state_age_ms": null,
+          "seat": null,
+          "rotations_last_hour": 0,
+          "harness": "H6",
+          "budget_class": "research",
+          "turns": null,
+          "est_tokens": null,
+          "budget_pct": null,
+          "model": null,
+          "heartbeat_age_ms": null,
+          "attempts": 0,
+          "pr_url": "https://example.com/demo-app/pull/4",
+          "tmux_target": "lead-estimate-sso",
+          "team": []
+        }
+      ],
+      "rows_omitted": 0,
+      "queue": [],
+      "counts": {
+        "done": 4
+      },
+      "queue_paused": false,
+      "backpressure": {
+        "active": false,
+        "reason": null,
+        "since": null,
+        "until": null
+      },
+      "seats": {
+        "configured": 0,
+        "open": [],
+        "closed": [],
+        "unverified": [],
+        "unreadable": false
+      },
+      "watchdog_alive": false,
+      "lease": {
+        "session_id": "orch-demo",
+        "tmux_pane": null,
+        "tmux_socket": null,
+        "wake": "notify",
+        "lease_seq": 1,
+        "heartbeat_age_ms": 233
+      },
+      "lease_stale": false
+    }
+  }
+]

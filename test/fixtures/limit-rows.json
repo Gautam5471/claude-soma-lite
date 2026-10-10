@@ -1,0 +1,64 @@
+{
+  "_provenance": "Synthetic rows in the shape of the Claude Code transcript rows the limit classifier reads: the ids, timestamps and reset times are invented, and the categories and edge cases mirror ones seen in real transcripts.",
+  "rate_limit": {
+    "absent": [
+      {"_source":"s01.jsonl:1654","_build":"2.1.220","_text":"weekly_limit","type":"assistant","timestamp":"2015-07-29T18:59:44.126Z","isApiErrorMessage":true,"error":"rate_limit","apiErrorStatus":429,"message":{"model":"<synthetic>"}},
+      {"_source":"s01.jsonl:5141","_build":"2.1.220","_text":"org_monthly_spend_limit","type":"assistant","timestamp":"2015-07-30T19:06:46.898Z","isApiErrorMessage":true,"error":"rate_limit","apiErrorStatus":429,"message":{"model":"<synthetic>"}},
+      {"_source":"s01.jsonl:5143","_build":"2.1.220","_text":"org_monthly_spend_limit","type":"assistant","timestamp":"2015-07-30T19:07:23.956Z","isApiErrorMessage":true,"error":"rate_limit","apiErrorStatus":429,"message":{"model":"<synthetic>"}},
+      {"_source":"s02.jsonl:187","_build":"2.1.220","_text":"org_monthly_spend_limit","type":"assistant","timestamp":"2015-07-31T14:43:55.165Z","isApiErrorMessage":true,"error":"rate_limit","apiErrorStatus":429,"message":{"model":"<synthetic>"}},
+      {"_source":"agent-01.jsonl:226","_build":"2.1.220","_text":"org_monthly_spend_limit","type":"assistant","timestamp":"2015-07-31T14:44:18.191Z","isApiErrorMessage":true,"error":"rate_limit","apiErrorStatus":429,"message":{"model":"<synthetic>"}},
+      {"_source":"s03.jsonl:154","_build":"2.1.220","_text":"org_monthly_spend_limit","type":"assistant","timestamp":"2015-07-31T14:45:51.195Z","isApiErrorMessage":true,"error":"rate_limit","apiErrorStatus":429,"message":{"model":"<synthetic>"}},
+      {"_source":"s02.jsonl:189","_build":"2.1.220","_text":"org_monthly_spend_limit","type":"assistant","timestamp":"2015-07-31T14:56:09.843Z","isApiErrorMessage":true,"error":"rate_limit","apiErrorStatus":429,"message":{"model":"<synthetic>"}},
+      {"_source":"s04.jsonl:1055","_build":"2.1.221","_text":"weekly_limit","type":"assistant","timestamp":"2015-08-04T14:52:45.827Z","isApiErrorMessage":true,"error":"rate_limit","apiErrorStatus":429,"message":{"model":"<synthetic>"}},
+      {"_source":"s04.jsonl:1058","_build":"2.1.221","_text":"weekly_limit","type":"assistant","timestamp":"2015-08-04T14:52:47.162Z","isApiErrorMessage":true,"error":"rate_limit","apiErrorStatus":429,"message":{"model":"<synthetic>"}},
+      {"_source":"s05.jsonl:614","_build":"2.1.221","_text":"weekly_limit","type":"assistant","timestamp":"2015-08-04T14:53:33.784Z","isApiErrorMessage":true,"error":"rate_limit","apiErrorStatus":429,"message":{"model":"<synthetic>"}},
+      {"_source":"s05.jsonl:616","_build":"2.1.221","_text":"weekly_limit","type":"assistant","timestamp":"2015-08-04T14:53:34.811Z","isApiErrorMessage":true,"error":"rate_limit","apiErrorStatus":429,"message":{"model":"<synthetic>"}},
+      {"_source":"agent-02.jsonl:27","_build":"2.1.223","_text":"session_limit","type":"assistant","timestamp":"2015-08-06T15:17:32.618Z","isApiErrorMessage":true,"error":"rate_limit","apiErrorStatus":429,"message":{"model":"<synthetic>"}},
+      {"_source":"agent-03.jsonl:40","_build":"2.1.223","_text":"session_limit","type":"assistant","timestamp":"2015-08-06T15:17:36.774Z","isApiErrorMessage":true,"error":"rate_limit","apiErrorStatus":429,"message":{"model":"<synthetic>"}},
+      {"_source":"agent-04.jsonl:29","_build":"2.1.223","_text":"session_limit","type":"assistant","timestamp":"2015-08-06T15:17:41.040Z","isApiErrorMessage":true,"error":"rate_limit","apiErrorStatus":429,"message":{"model":"<synthetic>"}},
+      {"_source":"s06.jsonl:1041","_build":"2.1.223","_text":"out_of_credits","type":"assistant","timestamp":"2015-08-11T18:44:36.084Z","isApiErrorMessage":true,"error":"rate_limit","apiErrorStatus":429,"message":{"model":"<synthetic>"}},
+      {"_source":"s07.jsonl:463","_build":"2.1.227","_text":"individual_spend_limit","type":"assistant","timestamp":"2015-08-13T20:37:43.697Z","isApiErrorMessage":true,"error":"rate_limit","apiErrorStatus":429,"message":{"model":"<synthetic>"}},
+      {"_source":"s08.jsonl:509","_build":"2.1.227","_text":"individual_spend_limit","type":"assistant","timestamp":"2015-08-13T20:37:45.002Z","isApiErrorMessage":true,"error":"rate_limit","apiErrorStatus":429,"message":{"model":"<synthetic>"}},
+      {"_source":"s09.jsonl:4960","_build":"2.1.223","_text":"individual_spend_limit","type":"assistant","timestamp":"2015-08-13T20:44:43.071Z","isApiErrorMessage":true,"error":"rate_limit","apiErrorStatus":429,"message":{"model":"<synthetic>"}}
+    ],
+    "five_hour": [
+      {"_source":"s10.jsonl:218","_build":"2.1.241","_text":"individual_spend_limit","type":"assistant","timestamp":"2015-08-24T15:38:25.681Z","isApiErrorMessage":true,"error":"rate_limit","apiErrorStatus":429,"quotaLimits":{"status":"rejected","resetsAt":1440433800,"rateLimitType":"five_hour","overageDisabledReason":"org_spend_cap_reached"},"message":{"model":"<synthetic>"}},
+      {"_source":"s09.jsonl:13365","_build":"2.1.238","_text":"individual_spend_limit","type":"assistant","timestamp":"2015-08-24T15:38:50.129Z","isApiErrorMessage":true,"error":"rate_limit","apiErrorStatus":429,"quotaLimits":{"status":"rejected","resetsAt":1440433800,"rateLimitType":"five_hour","overageDisabledReason":"org_spend_cap_reached"},"message":{"model":"<synthetic>"}},
+      {"_source":"s09.jsonl:13378","_build":"2.1.238","_text":"individual_spend_limit","type":"assistant","timestamp":"2015-08-24T15:38:57.692Z","isApiErrorMessage":true,"error":"rate_limit","apiErrorStatus":429,"quotaLimits":{"status":"rejected","resetsAt":1440433800,"rateLimitType":"five_hour","overageDisabledReason":"org_spend_cap_reached"},"message":{"model":"<synthetic>"}},
+      {"_source":"s09.jsonl:13383","_build":"2.1.238","_text":"individual_spend_limit","type":"assistant","timestamp":"2015-08-24T15:42:56.906Z","isApiErrorMessage":true,"error":"rate_limit","apiErrorStatus":429,"quotaLimits":{"status":"rejected","resetsAt":1440433800,"rateLimitType":"five_hour","overageDisabledReason":"org_spend_cap_reached"},"message":{"model":"<synthetic>"}},
+      {"_source":"s09.jsonl:13388","_build":"2.1.238","_text":"individual_spend_limit","type":"assistant","timestamp":"2015-08-24T15:46:57.356Z","isApiErrorMessage":true,"error":"rate_limit","apiErrorStatus":429,"quotaLimits":{"status":"rejected","resetsAt":1440433800,"rateLimitType":"five_hour","overageDisabledReason":"org_spend_cap_reached"},"message":{"model":"<synthetic>"}},
+      {"_source":"s09.jsonl:13393","_build":"2.1.238","_text":"individual_spend_limit","type":"assistant","timestamp":"2015-08-24T15:50:56.705Z","isApiErrorMessage":true,"error":"rate_limit","apiErrorStatus":429,"quotaLimits":{"status":"rejected","resetsAt":1440449400,"rateLimitType":"five_hour","overageDisabledReason":"org_spend_cap_reached"},"message":{"model":"<synthetic>"}},
+      {"_source":"s09.jsonl:13398","_build":"2.1.238","_text":"individual_spend_limit","type":"assistant","timestamp":"2015-08-24T15:54:56.819Z","isApiErrorMessage":true,"error":"rate_limit","apiErrorStatus":429,"quotaLimits":{"status":"rejected","resetsAt":1440433800,"rateLimitType":"five_hour","overageDisabledReason":"org_spend_cap_reached"},"message":{"model":"<synthetic>"}},
+      {"_source":"s09.jsonl:13411","_build":"2.1.238","_text":"individual_spend_limit","type":"assistant","timestamp":"2015-08-24T15:58:57.441Z","isApiErrorMessage":true,"error":"rate_limit","apiErrorStatus":429,"quotaLimits":{"status":"rejected","resetsAt":1440449400,"rateLimitType":"five_hour","overageDisabledReason":"org_spend_cap_reached"},"message":{"model":"<synthetic>"}},
+      {"_source":"s09.jsonl:13416","_build":"2.1.238","_text":"individual_spend_limit","type":"assistant","timestamp":"2015-08-24T16:02:56.225Z","isApiErrorMessage":true,"error":"rate_limit","apiErrorStatus":429,"quotaLimits":{"status":"rejected","resetsAt":1440433800,"rateLimitType":"five_hour","overageDisabledReason":"org_spend_cap_reached"},"message":{"model":"<synthetic>"}},
+      {"_source":"s09.jsonl:13421","_build":"2.1.238","_text":"individual_spend_limit","type":"assistant","timestamp":"2015-08-24T16:06:56.440Z","isApiErrorMessage":true,"error":"rate_limit","apiErrorStatus":429,"quotaLimits":{"status":"rejected","resetsAt":1440433800,"rateLimitType":"five_hour","overageDisabledReason":"org_spend_cap_reached"},"message":{"model":"<synthetic>"}},
+      {"_source":"s09.jsonl:13426","_build":"2.1.238","_text":"individual_spend_limit","type":"assistant","timestamp":"2015-08-24T16:10:57.032Z","isApiErrorMessage":true,"error":"rate_limit","apiErrorStatus":429,"quotaLimits":{"status":"rejected","resetsAt":1440450600,"rateLimitType":"five_hour","overageDisabledReason":"org_spend_cap_reached"},"message":{"model":"<synthetic>"}},
+      {"_source":"s09.jsonl:13439","_build":"2.1.238","_text":"individual_spend_limit","type":"assistant","timestamp":"2015-08-24T16:14:57.422Z","isApiErrorMessage":true,"error":"rate_limit","apiErrorStatus":429,"quotaLimits":{"status":"rejected","resetsAt":1440450600,"rateLimitType":"five_hour","overageDisabledReason":"org_spend_cap_reached"},"message":{"model":"<synthetic>"}},
+      {"_source":"s09.jsonl:13444","_build":"2.1.238","_text":"individual_spend_limit","type":"assistant","timestamp":"2015-08-24T16:18:57.066Z","isApiErrorMessage":true,"error":"rate_limit","apiErrorStatus":429,"quotaLimits":{"status":"rejected","resetsAt":1440450600,"rateLimitType":"five_hour","overageDisabledReason":"org_spend_cap_reached"},"message":{"model":"<synthetic>"}},
+      {"_source":"s09.jsonl:13449","_build":"2.1.238","_text":"individual_spend_limit","type":"assistant","timestamp":"2015-08-24T16:22:56.524Z","isApiErrorMessage":true,"error":"rate_limit","apiErrorStatus":429,"quotaLimits":{"status":"rejected","resetsAt":1440451200,"rateLimitType":"five_hour","overageDisabledReason":"org_spend_cap_reached"},"message":{"model":"<synthetic>"}},
+      {"_source":"s09.jsonl:13454","_build":"2.1.238","_text":"individual_spend_limit","type":"assistant","timestamp":"2015-08-24T16:26:57.087Z","isApiErrorMessage":true,"error":"rate_limit","apiErrorStatus":429,"quotaLimits":{"status":"rejected","resetsAt":1440433800,"rateLimitType":"five_hour","overageDisabledReason":"org_spend_cap_reached"},"message":{"model":"<synthetic>"}}
+    ]
+  },
+  "negative": {
+    "server_error": [
+      {"_source":"s09.jsonl:210","_build":"2.1.220","_text":"connection_lost","type":"assistant","timestamp":"2015-08-03T14:56:23.201Z","isApiErrorMessage":true,"error":"server_error","message":{"model":"<synthetic>"}},
+      {"_source":"s09.jsonl:6496","_build":"2.1.223","_text":"529","type":"assistant","timestamp":"2015-08-18T16:42:28.255Z","isApiErrorMessage":true,"error":"server_error","apiErrorStatus":529,"message":{"model":"<synthetic>"}},
+      {"_source":"s11.jsonl:2151","_build":"2.1.235","_text":"sleep","type":"assistant","timestamp":"2015-08-19T21:32:29.154Z","isApiErrorMessage":true,"error":"server_error","message":{"model":"<synthetic>"}},
+      {"_source":"s12.jsonl:5156","_build":"2.1.235","_text":"timeout","type":"assistant","timestamp":"2015-08-20T00:36:09.128Z","isApiErrorMessage":true,"error":"server_error","message":{"model":"<synthetic>"}},
+      {"_source":"s13.jsonl:4945","_build":"2.1.233","_text":"ENOTFOUND","type":"assistant","timestamp":"2015-08-20T18:47:49.104Z","isApiErrorMessage":true,"error":"server_error","message":{"model":"<synthetic>"}}
+    ],
+    "invalid_request": [
+      {"_source":"s09.jsonl:1320","_build":"2.1.221","_text":"other","type":"assistant","timestamp":"2015-08-06T12:10:11.353Z","isApiErrorMessage":true,"error":"invalid_request","message":{"model":"<synthetic>"}},
+      {"_source":"s09.jsonl:20101","_build":"2.1.238","_text":"prompt_too_long","type":"assistant","timestamp":"2015-08-25T19:03:00.902Z","isApiErrorMessage":true,"error":"invalid_request","apiErrorStatus":400,"message":{"model":"<synthetic>"}}
+    ],
+    "authentication_failed": [
+      {"_source":"s09.jsonl:2208","_build":"2.1.223","_text":"login_expired","type":"assistant","timestamp":"2015-08-09T18:02:07.782Z","isApiErrorMessage":true,"error":"authentication_failed","message":{"model":"<synthetic>"}}
+    ],
+    "oauth_org_not_allowed": [
+      {"_source":"s13.jsonl:15346","_build":"2.1.238","_text":"org_not_allowed","type":"assistant","timestamp":"2015-08-26T16:22:43.619Z","isApiErrorMessage":true,"error":"oauth_org_not_allowed","apiErrorStatus":403,"message":{"model":"<synthetic>"}}
+    ]
+  },
+  "healthy": [
+    {"_source":"s10.jsonl:225","_build":"2.1.241","type":"assistant","timestamp":"2015-08-24T16:31:43.506Z","message":{"model":"claude-opus-5"}}
+  ]
+}

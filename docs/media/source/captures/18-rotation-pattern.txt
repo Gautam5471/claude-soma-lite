@@ -1,0 +1,1 @@
+seat_window: close the seat|a target that is not logged in|no open seat: nothing is killed|three rotations inside an hour|spend_cap through the REAL classifier|soma.json order beats recency

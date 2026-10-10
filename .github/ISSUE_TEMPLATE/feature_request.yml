@@ -1,0 +1,68 @@
+name: Feature request
+description: Suggest a change to how soma behaves, or something it should do.
+title: "feat: "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for the idea. Check first whether it is already planned or deliberately left out:
+
+        - [docs/ROADMAP.md](https://github.com/techfreakworm/claude-soma-lite/blob/main/docs/ROADMAP.md): what v1 deliberately does not build, and why.
+        - [The issue tracker](https://github.com/techfreakworm/claude-soma-lite/issues): what is already proposed or being worked on.
+
+        soma runs unattended Claude Code sessions with permission prompts bypassed, so any change that touches the guardrails, the spend gate or the lease gets extra scrutiny. Say so up front if yours does.
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: The problem
+      description: What were you trying to do, and what got in the way? Describe the situation, not the solution.
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: What you would like soma to do
+      description: The behaviour you want. Name the verb, MCP tool, `soma.json` key or doctor check it would change, if you know.
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives you considered
+      description: Other ways to get the same result, including what you do today instead.
+    validations:
+      required: false
+
+  - type: dropdown
+    id: surface
+    attributes:
+      label: Does it touch a safety surface?
+      description: The deny rules, the PreToolUse gate, the environment allow-list, the draft-only PR wrapper, the orchestrator lease, budgets, or the `soma up` spend gate.
+      options:
+        - "No"
+        - "Yes (explain below)"
+        - "Not sure"
+    validations:
+      required: true
+
+  - type: textarea
+    id: safety
+    attributes:
+      label: Safety and spend considerations
+      description: If it touches a safety surface, what could go wrong if it misbehaves, and how would an operator notice? If it changes how many tokens a fleet can spend, say how.
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Before you submit
+      options:
+        - label: I checked docs/ROADMAP.md and the issue tracker for an existing entry.
+          required: true
+        - label: I left out private paths, account names, repository names and secrets.
+          required: true

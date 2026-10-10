@@ -1,0 +1,4 @@
+/private/tmp/soma-demo/repos/demo-app                            eb4c77a [main]
+/private/tmp/soma-demo/.soma/worktrees/demo-app/add-rate-limit   eb4c77a [soma/add-rate-limit]
+/private/tmp/soma-demo/.soma/worktrees/demo-app/docs-quickstart  eb4c77a [soma/docs-quickstart]
+/private/tmp/soma-demo/.soma/worktrees/demo-app/fix-login-bug    eb4c77a [soma/fix-login-bug]

@@ -1,0 +1,137 @@
+name: Bug report
+description: Something soma did, or failed to do, on your machine.
+title: "bug: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report this.
+
+        **A way past a guardrail is a security report, not an issue.** Use the private form described in [SECURITY.md](https://github.com/techfreakworm/claude-soma-lite/blob/main/SECURITY.md) instead.
+
+        Before you file, check the troubleshooting table in [RUNBOOK.md §12](https://github.com/techfreakworm/claude-soma-lite/blob/main/RUNBOOK.md#12-troubleshooting) and the declared limits in [RUNBOOK.md §11](https://github.com/techfreakworm/claude-soma-lite/blob/main/RUNBOOK.md#11-what-is-not-guaranteed). Many surprises are documented there.
+
+        **Redact before you paste.** `soma doctor`, `soma status` and pane output name your home directory, your config roots, your repositories and your account. Replace them with placeholders such as `$HOME`, `~/.soma` and `my-repo`, and never paste a token, a cookie or a transcript.
+
+  - type: dropdown
+    id: platform
+    attributes:
+      label: Platform
+      options:
+        - macOS
+        - Linux
+        - Windows, inside WSL2
+        - Windows, native (not supported)
+        - Other
+    validations:
+      required: true
+
+  - type: input
+    id: os-version
+    attributes:
+      label: OS version or distribution
+      description: For WSL2, give the distribution inside it as well.
+      placeholder: "macOS 15.6 / Ubuntu 24.04 / Fedora 42 / WSL2 + Ubuntu 24.04"
+    validations:
+      required: true
+
+  - type: input
+    id: commit
+    attributes:
+      label: soma commit
+      description: Run `git rev-parse --short HEAD` in your claude-soma-lite checkout.
+      placeholder: "abc1234"
+    validations:
+      required: true
+
+  - type: input
+    id: node
+    attributes:
+      label: "`node -v`"
+      description: Use the node your `soma` wrapper pins, which is the one that ran `soma up`.
+      placeholder: "v24.x.y"
+    validations:
+      required: true
+
+  - type: input
+    id: tmux
+    attributes:
+      label: "`tmux -V`"
+      placeholder: "tmux 3.4"
+    validations:
+      required: true
+
+  - type: input
+    id: git
+    attributes:
+      label: "`git --version`"
+      placeholder: "git version 2.43.0"
+    validations:
+      required: true
+
+  - type: input
+    id: claude
+    attributes:
+      label: "`claude --version`"
+      placeholder: "2.1.x (Claude Code)"
+    validations:
+      required: true
+
+  - type: input
+    id: gh
+    attributes:
+      label: "`gh --version` (first line)"
+      placeholder: "gh version 2.x.y"
+    validations:
+      required: false
+
+  - type: textarea
+    id: doctor
+    attributes:
+      label: "`soma doctor` output, redacted"
+      description: Paste every row, not only the failing ones. `unobserved` rows matter too. Redact paths and names first.
+      render: text
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: The exact commands or MCP tool calls, in order. Include your `soma.json` with paths and repository names redacted, if it matters.
+      placeholder: |
+        1. soma init
+        2. soma doctor
+        3. soma enqueue --file tasks.json
+        4. soma up
+        5. ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behaviour
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behaviour
+      description: What happened instead. Redacted excerpts from `soma status`, `soma digest` or `soma peek <lead>` help a lot. Include exit codes, because soma uses 1, 2 and 3 for different things.
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Before you submit
+      options:
+        - label: I checked RUNBOOK.md §11 and §12, and this is not a documented limit.
+          required: true
+        - label: I redacted home paths, account names, repository names and anything secret.
+          required: true
+        - label: This is not a way past a guardrail. Those go through SECURITY.md.
+          required: true

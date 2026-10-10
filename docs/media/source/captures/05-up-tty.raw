@@ -1,0 +1,5 @@
+Fleet worst case: 3 leads × 38,000,000 est_tokens (iterate, the largest budget class) = 114,000,000 est_tokens.
+All-standard case: 3 × 20,000,000 = 60,000,000.
+Budgets meter each lead AND its team, and are deliberately loose so a breaker never fires on ordinary work. Lower max_leads to lower this.
+Open the queue to 3 concurrent leads? Type "yes" to confirm: no
+^Dsoma up: aborted — the queue was not opened and no watchdog was started.

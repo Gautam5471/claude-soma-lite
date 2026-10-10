@@ -1,0 +1,1 @@
+{"hookSpecificOutput":{"hookEventName":"UserPromptSubmit","additionalContext":"## soma lead events (5 unread)\n- fix-login-bug STARTED\n- fix-login-bug HARNESS\n- fix-login-bug NEEDS_INPUT\n- docs-quickstart HARNESS\n- docs-quickstart MILESTONE\nCall soma_inbox for payloads."}}

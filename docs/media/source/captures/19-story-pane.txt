@@ -1,0 +1,1 @@
+Compare at login. Leave stored usernames alone.

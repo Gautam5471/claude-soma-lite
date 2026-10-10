@@ -1,0 +1,32 @@
+### lead: git push
+{"hookSpecificOutput":{"hookEventName":"PreToolUse","permissionDecision":"deny","permissionDecisionReason":"soma: leads may not push or merge through the shell. Hand it to a teammate."}}
+[exit 0]
+
+### lead: git merge
+{"hookSpecificOutput":{"hookEventName":"PreToolUse","permissionDecision":"deny","permissionDecisionReason":"soma: leads may not push or merge through the shell. Hand it to a teammate."}}
+[exit 0]
+
+### teammate: git push (allowed: teammates deliver)
+
+[exit 0]
+
+### teammate: overwrite the guard file
+{"hookSpecificOutput":{"hookEventName":"PreToolUse","permissionDecision":"deny","permissionDecisionReason":"soma: .claude/settings.local.json is the file that keeps the operator's credentials — their MCP servers, database connections and authenticated connectors — out of reach of unattended agents. Rewriting it is never a step in a task. If you need a tool it denies, ask the orchestrator to allow it."}}
+[exit 0]
+
+### teammate: reach the soma bus
+{"hookSpecificOutput":{"hookEventName":"PreToolUse","permissionDecision":"deny","permissionDecisionReason":"soma: the soma bus belongs to the lead session. A teammate reaching it through user scope gets the CANDIDATE tool set, which carries soma_adopt — it could take the orchestrator lease out from under the operator. Report through the lead: finish your work, and the lead files soma_report."}}
+[exit 0]
+
+### budget tripped: lead runs the tests
+{"hookSpecificOutput":{"hookEventName":"PreToolUse","permissionDecision":"deny","permissionDecisionReason":"soma: this task's budget is spent (BUDGET_TRIPPED). You may still talk and call soma_report — wind down now and file COMPLETED or ERROR with what exists. Ask the orchestrator to clear the trip if you need more."}}
+[exit 0]
+
+### budget tripped: teammate edits
+{"hookSpecificOutput":{"hookEventName":"PreToolUse","permissionDecision":"deny","permissionDecisionReason":"soma: this task's budget is spent (BUDGET_TRIPPED). You may still talk and call soma_report — wind down now and file COMPLETED or ERROR with what exists. Ask the orchestrator to clear the trip if you need more."}}
+[exit 0]
+
+### budget tripped: lead files soma_report (allowed)
+
+[exit 0]
+

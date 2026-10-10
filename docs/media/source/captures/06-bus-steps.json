@@ -1,0 +1,282 @@
+[
+  {
+    "who": "orchestrator",
+    "what": "tools/list (candidate)",
+    "result": [
+      "soma_adopt",
+      "soma_status"
+    ]
+  },
+  {
+    "who": "orchestrator",
+    "what": "soma_adopt {}",
+    "result": {
+      "adopted": true,
+      "lease_seq": 1,
+      "wake": "notify",
+      "degraded_wake": true,
+      "forced": false,
+      "stolen_from": null,
+      "demoted_notice": null,
+      "unread_count": 0,
+      "session_id_source": "soma-env"
+    }
+  },
+  {
+    "who": "orchestrator",
+    "what": "tools/list (after adopt)",
+    "result": [
+      "soma_adopt",
+      "soma_status",
+      "soma_release",
+      "soma_enqueue",
+      "soma_queue",
+      "soma_spawn",
+      "soma_inbox",
+      "soma_send",
+      "soma_kill",
+      "soma_resume",
+      "soma_transcript",
+      "soma_digest"
+    ]
+  },
+  {
+    "who": "lead fix-login-bug",
+    "what": "tools/list",
+    "result": [
+      "soma_report",
+      "soma_task",
+      "soma_checkpoint"
+    ]
+  },
+  {
+    "who": "lead fix-login-bug",
+    "what": "soma_task {}",
+    "result": {
+      "task_id": "fix-login-bug",
+      "brief": "Make the username check case-insensitive. Write the failing test first.",
+      "repo": "demo-app",
+      "base_branch": null,
+      "source_ref": null,
+      "verify_hint": null
+    }
+  },
+  {
+    "who": "lead fix-login-bug",
+    "what": "soma_report STARTED",
+    "result": {
+      "stored_id": "1791586929705-0000",
+      "delivered": true,
+      "clamped": false
+    }
+  },
+  {
+    "who": "lead fix-login-bug",
+    "what": "soma_report HARNESS",
+    "result": {
+      "stored_id": "1791586929708-0000",
+      "delivered": true,
+      "clamped": false
+    }
+  },
+  {
+    "who": "lead fix-login-bug",
+    "what": "soma_report NEEDS_INPUT",
+    "result": {
+      "stored_id": "1791586929708-0001",
+      "delivered": true,
+      "clamped": false
+    }
+  },
+  {
+    "who": "lead docs-quickstart",
+    "what": "soma_report HARNESS (H1 with the wrong class)",
+    "result": {
+      "ok": false,
+      "error": "H1 reserves budget class \"standard\", not \"iterate\"; report \"standard\", or choose the harness whose class you need"
+    }
+  },
+  {
+    "who": "lead docs-quickstart",
+    "what": "soma_report HARNESS (H1, standard)",
+    "result": {
+      "stored_id": "1791586929740-0000",
+      "delivered": true,
+      "clamped": false
+    }
+  },
+  {
+    "who": "lead docs-quickstart",
+    "what": "soma_report MILESTONE",
+    "result": {
+      "stored_id": "1791586929740-0001",
+      "delivered": true,
+      "clamped": false
+    }
+  },
+  {
+    "who": "orchestrator",
+    "what": "soma_inbox {}",
+    "result": {
+      "events": [
+        {
+          "id": "1791586929705-0000",
+          "ts": 1791586929705,
+          "type": "STARTED",
+          "payload": {
+            "summary": "picked up; reading src/login.js"
+          },
+          "lead": "fix-login-bug"
+        },
+        {
+          "id": "1791586929708-0000",
+          "ts": 1791586929708,
+          "type": "HARNESS",
+          "payload": {
+            "harness_id": "H3",
+            "autonomy": "decide-within-ticket",
+            "verify_command": "npm test",
+            "max_iterations": 10,
+            "budget_class": "iterate",
+            "team_plan": [
+              {
+                "role": "test-writer"
+              },
+              {
+                "role": "implementer"
+              },
+              {
+                "role": "verifier",
+                "stance": "default-REJECT"
+              }
+            ],
+            "plan_summary": "Failing test for a capitalised username first, then fold case in login(), then the verifier runs npm test from a clean state."
+          },
+          "lead": "fix-login-bug"
+        },
+        {
+          "id": "1791586929708-0001",
+          "ts": 1791586929708,
+          "type": "NEEDS_INPUT",
+          "payload": {
+            "question": "Store usernames lowercased, or only compare case-insensitively at login? I would compare at login and leave stored data alone."
+          },
+          "lead": "fix-login-bug"
+        },
+        {
+          "id": "1791586929740-0000",
+          "ts": 1791586929740,
+          "type": "HARNESS",
+          "payload": {
+            "harness_id": "H1",
+            "budget_class": "standard",
+            "autonomy": "decide-within-ticket",
+            "verify_command": "reviewer follows the quickstart on a clean clone",
+            "max_iterations": 1,
+            "team_plan": [
+              {
+                "role": "implementer"
+              },
+              {
+                "role": "verifier"
+              }
+            ],
+            "plan_summary": "Write the five steps, then a verifier follows them on a clean clone."
+          },
+          "lead": "docs-quickstart"
+        },
+        {
+          "id": "1791586929740-0001",
+          "ts": 1791586929740,
+          "type": "MILESTONE",
+          "payload": {
+            "summary": "quickstart drafted; verifier running it on a clean clone"
+          },
+          "lead": "docs-quickstart"
+        }
+      ],
+      "returned": 5,
+      "remaining": 0,
+      "marked_read": true,
+      "folded": 2,
+      "terminal": 0
+    }
+  },
+  {
+    "who": "orchestrator",
+    "what": "soma_status {lead: fix-login-bug}",
+    "result": {
+      "leads": [
+        {
+          "lead": "fix-login-bug",
+          "task_id": "fix-login-bug",
+          "title": "Login rejects usernames typed with capital letters",
+          "repo": "demo-app",
+          "status": "queued",
+          "liveness": "not-running",
+          "pane_state": null,
+          "pane_fine": null,
+          "pane_kind": null,
+          "pane_cmd": null,
+          "pane_state_source": null,
+          "pane_state_age_ms": null,
+          "seat": null,
+          "rotations_last_hour": 0,
+          "harness": "H3",
+          "budget_class": "iterate",
+          "turns": null,
+          "est_tokens": null,
+          "budget_pct": null,
+          "model": null,
+          "heartbeat_age_ms": null,
+          "attempts": 0,
+          "pr_url": null,
+          "tmux_target": "lead-fix-login-bug",
+          "team": []
+        }
+      ],
+      "rows_omitted": 0,
+      "queue": [
+        "fix-login-bug",
+        "add-rate-limit",
+        "docs-quickstart",
+        "estimate-sso"
+      ],
+      "counts": {
+        "queued": 4
+      },
+      "queue_paused": false,
+      "backpressure": {
+        "active": false,
+        "reason": null,
+        "since": null,
+        "until": null
+      },
+      "seats": {
+        "configured": 0,
+        "open": [],
+        "closed": [],
+        "unverified": [],
+        "unreadable": false
+      },
+      "watchdog_alive": false,
+      "lease": {
+        "session_id": "orch-demo",
+        "tmux_pane": null,
+        "tmux_socket": null,
+        "wake": "notify",
+        "lease_seq": 1,
+        "heartbeat_age_ms": 290
+      },
+      "lease_stale": false
+    }
+  },
+  {
+    "who": "orchestrator",
+    "what": "soma_digest {}",
+    "result": {
+      "ok": false,
+      "error": "the digest composer is not available in this build"
+    }
+  }
+]

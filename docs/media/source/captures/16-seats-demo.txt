@@ -1,0 +1,1 @@
+{"closed":"seat-a","reason":"five_hour","picked":"seat-b"}

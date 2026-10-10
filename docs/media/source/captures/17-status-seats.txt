@@ -1,0 +1,14 @@
+state root: /private/tmp/soma-demo/.soma
+queue: open
+backpressure: none
+orchestrator: orch-demo (seq 1, wake notify, heartbeat 9s ago)
+watchdog: absent — nothing spawns, revives, meters or drains without it. Run `soma up`.
+seats: seat-b open · seat-a closed until 1:02am (five_hour)
+
+LEAD                 STATUS   LIVE  PANE     SEAT       TURNS  TOKENS       MODEL
+fix-login-bug        queued   -     -        -          -      -            -
+add-rate-limit       queued   -     -        -          -      -            -
+docs-quickstart      queued   -     -        -          -      -            -
+estimate-sso         queued   -     -        -          -      -            -
+
+queued 4 · spawned 0 · blocked 0 · done 0 · failed 0 · skipped 0

@@ -1,0 +1,36 @@
+
+> claude-soma-lite@0.1.0 test
+> SOMA_HOME="${SOMA_TEST_HOME:-$(mktemp -d)}" node --test "test/**/*.test.mjs"
+
+✔ soma_report(HARNESS) validates and stores; COMPLETED wakes + toasts (3.049333ms)
+[… 1345 lines elided …]
+✔ ensureWorktree fetches remote base and bases branch on origin/<base> (8.121875ms)
+✔ retry of an existing dirty worktree recreates with -r2 suffix (4.535084ms)
+✔ the command sequence is fetch -> rev-parse -> list -> add, all against the repo (4.945084ms)
+✔ a worktree dir that is only a PREFIX of a listed one is not mistaken for it (4.950542ms)
+✔ a clean existing worktree is reused, and reports the branch it is actually on (5.911208ms)
+✔ a clean worktree that is not on this task's branch is not reused either (6.287208ms)
+✔ the retry suffix climbs past -r2 and stays inside the task namespace (8.139625ms)
+✔ a branch that outlived its worktree does not block the respawn (5.325916ms)
+✔ a worktree whose cleanliness cannot be established is recreated, not reused (3.673708ms)
+✔ a failed remove falls back to prune, and the clearance is verified not assumed (6.201959ms)
+✔ every git failure is loud, and nothing is created after one (8.106875ms)
+✔ bad arguments are refused before any git runs (2.386416ms)
+✔ removeWorktree is idempotent, targets the repo, and fails loudly (8.06ms)
+✔ withRepoLock: one holder per repo, released in a finally, re-entrant in-process (545.394375ms)
+✔ withRepoLock serializes real contention, and is never present-but-ownerless (210.134708ms)
+✔ a lock left behind by a crashed holder is still reclaimable (31.526708ms)
+✔ a second process cannot hold the same repo lock (1531.145958ms)
+✔ every link attempt in one contended acquire uses a name of its own (646.888708ms)
+✔ a filesystem without hard links says so, instead of reporting a socket error (176.949583ms)
+✔ a holder whose lock was taken over does not delete its successor on the way out (22.538041ms)
+✔ against real git: fetched base, no upstream, invisible .claude, escalating retries (660.743042ms)
+✔ against real git: removeWorktree unregisters, then no-ops (370.4145ms)
+ℹ tests 1368
+ℹ suites 0
+ℹ pass 1367
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 1
+ℹ todo 0
+ℹ duration_ms 7254.385333

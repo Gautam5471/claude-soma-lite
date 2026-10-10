@@ -1,0 +1,106 @@
+{
+  "H1": {
+    "name": "ONE-SHOT-PIPELINE",
+    "shape": "bounded",
+    "when": "small, crisp, low-risk; one pass is plausible",
+    "iteration": { "mode": "single-pass" },
+    "verify": { "kind": "mechanical-or-reviewer", "independent": true },
+    "stop_conditions": [
+      "the independent verifier APPROVEs and a draft PR exists",
+      "the verifier REJECTs twice: supersede with H2, H3 or H4 rather than grinding",
+      "budget class exhausted"
+    ],
+    "budget_class": "standard",
+    "primitive": "agent-team",
+    "autonomy": "decide-within-ticket",
+    "team": ["implementer", "verifier"]
+  },
+  "H2": {
+    "name": "ITERATE-TO-GREEN",
+    "shape": "bounded",
+    "when": "a runnable repo gate exists",
+    "iteration": { "mode": "until-gate", "max_iterations": 10, "stagnation": 3, "no_progress": 5 },
+    "verify": { "kind": "mechanical", "independent": true },
+    "stop_conditions": [
+      "the verifier runs the gate itself, from a clean state, and it passes",
+      "max_iterations reached: NEEDS_INPUT with the last failure",
+      "stagnation: 3 rounds with the same failing signature, NEEDS_INPUT",
+      "no_progress: 5 rounds without the failure count falling, NEEDS_INPUT",
+      "budget class exhausted"
+    ],
+    "budget_class": "iterate",
+    "primitive": "agent-team",
+    "autonomy": "decide-within-ticket",
+    "team": ["implementer", "verifier"]
+  },
+  "H3": {
+    "name": "TDD-LOOP",
+    "shape": "bounded",
+    "when": "behavior is test-first specifiable and \"done\" is a runnable command",
+    "iteration": { "mode": "until-gate", "max_iterations": 10, "stagnation": 3, "no_progress": 5 },
+    "verify": { "kind": "mechanical", "independent": true },
+    "stop_conditions": [
+      "every new test failed before the implementation and passes after it",
+      "the verifier runs the whole gate itself, from a clean state, and it passes",
+      "max_iterations reached: NEEDS_INPUT with the last failure",
+      "stagnation: 3 rounds with the same failing signature, NEEDS_INPUT",
+      "no_progress: 5 rounds without the failure count falling, NEEDS_INPUT",
+      "budget class exhausted"
+    ],
+    "budget_class": "iterate",
+    "primitive": "agent-team",
+    "autonomy": "decide-within-ticket",
+    "team": ["test-writer", "implementer", "verifier"]
+  },
+  "H4": {
+    "name": "REVIEW-FIX-LOOP",
+    "shape": "bounded",
+    "when": "no mechanical gate captures correctness",
+    "iteration": { "mode": "rounds", "max_iterations": 3 },
+    "verify": { "kind": "reviewer", "independent": true },
+    "stop_conditions": [
+      "the independent reviewer APPROVEs with evidence, not with agreement",
+      "3 rounds without an APPROVE: NEEDS_INPUT with the open objections verbatim",
+      "the reviewer returns ESCALATE_HUMAN: NEEDS_INPUT, do not out-argue it",
+      "budget class exhausted"
+    ],
+    "budget_class": "review",
+    "primitive": "agent-team",
+    "autonomy": "decide-within-ticket",
+    "team": ["implementer", "reviewer"]
+  },
+  "H5": {
+    "name": "BABYSITTER-FOLLOWUP",
+    "shape": "standing",
+    "when": "after a draft PR opens",
+    "iteration": { "mode": "poll" },
+    "verify": { "kind": "ci-and-review", "independent": true },
+    "stop_conditions": [
+      "the PR is closed or merged by someone else: never by you",
+      "the operator says stop, or the fleet settles",
+      "a poll that finds nothing new must early-exit under ~5k tokens",
+      "budget class exhausted (500k/day)"
+    ],
+    "budget_class": "babysit",
+    "primitive": "in-session-loop",
+    "autonomy": "report-only",
+    "team": ["fixer"]
+  },
+  "H6": {
+    "name": "RESEARCH-SPIKE",
+    "shape": "bounded",
+    "when": "the deliverable is a report, an RCA or an estimate, not code",
+    "iteration": { "mode": "single-pass" },
+    "verify": { "kind": "reviewer", "independent": true },
+    "stop_conditions": [
+      "every question the ticket asks is answered, with a source per claim",
+      "no production file was changed: a spike that edits code is the wrong harness",
+      "the fact-checker APPROVEs the report against its sources",
+      "budget class exhausted"
+    ],
+    "budget_class": "research",
+    "primitive": "workflow",
+    "autonomy": "ask-first",
+    "team": ["report-writer", "fact-checker"]
+  }
+}

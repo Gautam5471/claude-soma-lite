@@ -1,0 +1,14 @@
+state root: /private/tmp/soma-demo/.soma
+queue: open
+backpressure: none
+orchestrator: orch-demo (seq 1, wake notify, heartbeat 1s ago)
+watchdog: absent — nothing spawns, revives, meters or drains without it. Run `soma up`.
+seats: none configured — leads run under this process's CLAUDE_CONFIG_DIR
+
+LEAD                 STATUS   LIVE  PANE     SEAT       TURNS  TOKENS       MODEL
+fix-login-bug        done     -     other    -          -      -            -
+add-rate-limit       done     -     gone     -          -      -            -
+docs-quickstart      done     -     gone     -          -      -            -
+estimate-sso         done     -     gone     -          -      -            -
+
+queued 0 · spawned 0 · blocked 0 · done 4 · failed 0 · skipped 0
