@@ -1532,8 +1532,7 @@ export function orchTools(ctx) {
   // -------------------------------------------------------------------------
 
   /** Repo names the operator has configured, or null when nothing is configured. */
-  const knownRepos = async () => {
-    const repos = (await configOf())?.repos;
+  const knownRepos = (repos) => {
     if (!isRecord(repos)) return null;
     const names = Object.keys(repos);
     // An unconfigured fleet validates nothing: refusing every task on a fresh
@@ -1549,8 +1548,7 @@ export function orchTools(ctx) {
    * a pinned class by and `harness.readBudgets` prices a harness by, so a class this door admits is
    * one the breaker can bind. Null, validating nothing, for the reason `knownRepos` gives.
    */
-  const knownBudgetClasses = async () => {
-    const budgets = (await configOf())?.budgets;
+  const knownBudgetClasses = (budgets) => {
     if (!isRecord(budgets)) return null;
     const names = Object.keys(budgets).filter((name) => isRecord(budgets[name]));
     return names.length ? new Set(names) : null;
@@ -1563,8 +1561,13 @@ export function orchTools(ctx) {
     if (tasks.length > MAX_ENQUEUE) {
       return refuse(`${tasks.length} tasks in one call is more than a backlog; send at most ${MAX_ENQUEUE} per call`);
     }
-    const known = await knownRepos();
-    const classes = await knownBudgetClasses();
+    // One read of soma.json for every use: the repo names and budget classes gate intake below,
+    // and the repo map itself goes to `enqueue`, which never reads the config and needs it for a
+    // repo's `verify_hint`.
+    const cfg = await configOf();
+    const repos = cfg?.repos;
+    const known = knownRepos(repos);
+    const classes = knownBudgetClasses(cfg?.budgets);
     const rejected = [];
     const accepted = [];
     for (const task of tasks) {
@@ -1602,7 +1605,7 @@ export function orchTools(ctx) {
     let result = { queued: [], skipped: [] };
     if (accepted.length) {
       try {
-        result = (await deps.enqueue(accepted)) ?? result;
+        result = (await deps.enqueue(accepted, { repos })) ?? result;
       } catch (e) {
         return refuse(`the fleet checkpoint could not be updated${codeOf(e)}`);
       }
