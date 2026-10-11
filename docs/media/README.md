@@ -7,7 +7,7 @@ six scenes of real captured output. `showcase.gif` is the story on its own, for 
 
 | file | what it is |
 |---|---|
-| `showcase.mp4` | 1920x1080, 30 fps, H.264 High (yuv420p), no audio, `+faststart`, 88.5 s |
+| `showcase.mp4` | 1920x1080, 30 fps, H.264 High (yuv420p), AAC narration (ElevenLabs voice; script in [NARRATION.md](NARRATION.md)), `+faststart`, 88.5 s |
 | `showcase.gif` | 960x540, 12 fps, loops forever, 27.6 s: the story, steps 1 to 6 below |
 | `showcase-poster.png` | 1920x1080 still of the title scene |
 | `source/` | the composition, the captured output, and the scripts that captured it |

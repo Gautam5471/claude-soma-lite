@@ -9,9 +9,9 @@ its own Claude Code lead, tmux session and git worktree, and comes back as a dra
 [![Tests: 1,300+ on node:test](https://img.shields.io/badge/tests-1%2C300%2B%20node%3Atest-blue)](test/)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
-https://github.com/user-attachments/assets/faa84ab4-b283-451e-9040-ecce88935d9e
+https://github.com/user-attachments/assets/e918ad06-3a6c-480c-8cb0-6c2a09de5714
 
-*The 88-second film: a plain-language story of soma in action, then a "For developers" section of real captured output. If the player does not load, [download the MP4](docs/media/showcase.mp4). [How the video was made](docs/media/README.md).*
+*The 88-second narrated film: a plain-language story of soma in action, then a "For developers" section of real captured output. If the player does not load, [download the MP4](docs/media/showcase.mp4). [How the video was made](docs/media/README.md).*
 
 > **Status: pre-release (0.1.0). Supervised use only.**
 > soma starts Claude Code sessions that run unattended in your repositories with permission
