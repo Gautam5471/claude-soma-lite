@@ -278,10 +278,14 @@ soma doctor
 soma enqueue --file tasks.json
 soma up
 
-# 6. Start an interactive Claude Code session outside tmux, or inside soma's own tmux server
-#    (tmux -L soma new-session -s orchestrator), never in your own tmux. Take over the fleet:
-#    /soma-promote
+# 6. Start the orchestrator inside soma's own tmux server (never your own tmux), then take
+#    over the fleet. Detach with Ctrl-b, then d; reattach: tmux -L soma attach -t orchestrator
+tmux -L soma new-session -s orchestrator
+claude                      # in the new tmux window; then type /soma-promote
 ```
+
+Running the orchestrator in soma's tmux server is what lets a lead's wake-up arrive as a live
+keystroke; [Driving the fleet](#driving-the-fleet-from-a-claude-code-session) has the other options.
 
 The wrapper. Do not run `soma` bare: the node that runs `soma up` supervises the fleet for its
 whole life, and every soma command must agree on one absolute state root. Pin node by absolute
@@ -606,30 +610,32 @@ compare them with what you sent.
 
 ### Driving the fleet from a Claude Code session
 
-The CLI brings the fleet up. Day to day, you drive it from a promoted session. In an interactive
-`claude` session (not a lead or a teammate), type:
+The CLI brings the fleet up. Day to day, you drive it from a promoted session. Start it inside
+soma's own tmux server, so a lead's urgent report reaches it as a live keystroke:
 
-```
-/soma-promote
+```bash
+tmux -L soma new-session -s orchestrator
+claude                      # in the new tmux window; then type /soma-promote
 ```
 
-`soma init` installed that skill. Promotion is **one tool call**, `soma_adopt`. The bus is already
-mounted in the read-only candidate role, so there is no restart and no `/mcp` reconnect. You are
-taking a **lease**, not starting a service: the watchdog and the leads keep running whoever holds
-it. The lease goes stale after 10 minutes without a heartbeat, and every orchestrator tool call is
-a heartbeat, so open each turn with `soma_inbox` or `soma_status`.
+Detach with your tmux prefix (Ctrl-b by default), then `d`; reattach with
+`tmux -L soma attach -t orchestrator`. The session must be an interactive one, not a lead or a
+teammate.
+
+`soma init` installed the `/soma-promote` skill. Promotion is **one tool call**, `soma_adopt`.
+The bus is already mounted in the read-only candidate role, so there is no restart and no `/mcp`
+reconnect. You are taking a **lease**, not starting a service: the watchdog and the leads keep
+running whoever holds it. The lease goes stale after 10 minutes without a heartbeat, and every
+orchestrator tool call is a heartbeat, so open each turn with `soma_inbox` or `soma_status`.
 
 > [!WARNING]
-> **Where to run the orchestrator session.** A lead's urgent report is typed into the
-> orchestrator's pane as a wake-up only when the orchestrator runs inside soma's own tmux server:
-> start it with `tmux -L soma new-session -s orchestrator`, then run `claude` in that window
-> (reattach later with `tmux -L soma attach -t orchestrator`). Outside tmux, the wake-up is a
-> desktop notification and the events wait for your next turn, which is safe, only slower.
-> **Never start the orchestrator in your own tmux while leads are running:** the bus records your
-> pane's id without checking which tmux server it is on, and a wake-up is typed into the pane with
-> that id on soma's server, which can be a lead's or a teammate's. For a fleet on another socket,
-> such as `soma2`'s, start the orchestrator outside tmux: on this build, leads send every wake-up
-> to the default `soma` server.
+> **Other places to run the orchestrator.** Outside tmux also works, but a lead's wake-up then
+> arrives only as a desktop notification, and the events wait for your next turn: safe, only
+> slower. **Never start the orchestrator in your own tmux while leads are running:** the bus
+> records your pane's id without checking which tmux server it is on, and a wake-up is typed into
+> the pane with that id on soma's server, which can be a lead's or a teammate's. For a fleet on
+> another socket, such as `soma2`'s, start the orchestrator outside tmux: on this build, leads
+> send every wake-up to the default `soma` server ([issue #1](https://github.com/techfreakworm/claude-soma-lite/issues/1)).
 
 Two tools to be careful with:
 

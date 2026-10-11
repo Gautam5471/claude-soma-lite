@@ -444,28 +444,33 @@ Stay at the terminal for this. It is the use RUNBOOK §11 says the project is re
    soma attach my-task-1       # your terminal on the lead's pane; detach with your tmux prefix, then d
    ```
 
-> [!WARNING]
-> **Where to run the orchestrator session.** A lead's urgent report is typed into the
-> orchestrator's pane as a wake-up only when the orchestrator runs inside soma's own tmux server:
-> start it with `tmux -L soma new-session -s orchestrator`, then run `claude` in that window
-> (reattach later with `tmux -L soma attach -t orchestrator`). Outside tmux, the wake-up is a
-> desktop notification and the events wait for your next turn, which is safe, only slower.
-> **Never start the orchestrator in your own tmux while leads are running:** the bus records your
-> pane's id without checking which tmux server it is on, and a wake-up is typed into the pane with
-> that id on soma's server, which can be a lead's or a teammate's. For a fleet on another socket,
-> such as `soma2`'s, start the orchestrator outside tmux: on this build, leads send every wake-up
-> to the default `soma` server.
+4. **Start the orchestrator inside soma's own tmux server, and promote it.** In the WSL
+   terminal (for example a Windows Terminal Ubuntu tab), run:
 
-4. **Promote a Claude Code session to orchestrator.** In WSL, start an interactive `claude`
-   session with the same Claude Code config that `soma init` registered the bus in (a session
-   started before `soma init` will not have it), inside soma's tmux server or outside tmux as the
-   warning above says, and type `/soma-promote`. Promotion is one tool call, `soma_adopt`; there
-   is no restart. The session then drains events with `soma_inbox` and answers leads with
-   `soma_send`.
+   ```bash
+   tmux -L soma new-session -s orchestrator
+   claude                      # in the new tmux window; then type /soma-promote
+   ```
+
+   Inside soma's tmux server, a lead's urgent report reaches this session as a live keystroke.
+   Detach with your tmux prefix (Ctrl-b by default), then `d`; reattach with
+   `tmux -L soma attach -t orchestrator`. Use the same Claude Code config that `soma init`
+   registered the bus in (a session started before `soma init` will not have it). Promotion is
+   one tool call, `soma_adopt`; there is no restart. The session then drains events with
+   `soma_inbox` and answers leads with `soma_send`.
 
    **A finished lead keeps its admission slot until the orchestrator drains its `COMPLETED` (or
    `ERROR`) report with `soma_inbox`.** Without a promoted session draining the inbox, finished
    leads go on holding their slots and the next queued task waits.
+
+> [!WARNING]
+> **Other places to run the orchestrator.** Outside tmux also works, but a lead's wake-up then
+> arrives only as a desktop notification, and the events wait for your next turn: safe, only
+> slower. **Never start the orchestrator in your own tmux while leads are running:** the bus
+> records your pane's id without checking which tmux server it is on, and a wake-up is typed into
+> the pane with that id on soma's server, which can be a lead's or a teammate's. For a fleet on
+> another socket, such as `soma2`'s, start the orchestrator outside tmux: on this build, leads
+> send every wake-up to the default `soma` server ([issue #1](https://github.com/techfreakworm/claude-soma-lite/issues/1)).
 
 5. **Stop.** `soma down` stops the watchdog only. Running leads keep going, unsupervised, until you
    `soma kill <lead>` them.
