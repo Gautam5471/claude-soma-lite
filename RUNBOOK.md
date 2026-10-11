@@ -118,7 +118,9 @@ $SOMA_HOME/
   events/                <stream>.ndjson — one per lead, plus orch.ndjson
   heartbeats/            <lead> — touched by the lead's PostToolUse hook
   leads/<id>/            brief.md, mcp.json, settings.json, settings.launch.json,
-                         BUDGET_TRIPPED     (meta.json is in the design and in
+                         BUDGET_TRIPPED, BUDGET_WARNED (BUDGET_WARNED.delivered once
+                         the gate has handed the lead its 80% note)
+                         (meta.json is in the design and in
                          docs/ROADMAP.md, and NOTHING WRITES IT — see §9)
   logs/                  watchdog.log, <lead>.log (tmux pipe-pane transcripts)
   worktrees/<repo>/<id>/ the lead's checkout, on branch soma/<id>
@@ -179,9 +181,15 @@ in**, because a task naming an unconfigured repo cannot spawn:
 | `babysit` | 8,000,000 | 0 (disabled) | 0 (unbounded) |
 
 `tokens_cap` meters **the lead and its whole team** (teammate turns go to their own transcripts).
-`turn_cap` is calibrated per lead and is a backstop, not a budget. Warn at 80 %, hard trip at 100 %;
-a trip writes `leads/<id>/BUDGET_TRIPPED`, which the PreToolUse gate reads to deny every tool except
-the soma bus — so a tripped lead can still file `COMPLETED` or `ERROR`, and nothing else.
+`turn_cap` is calibrated per lead and is a backstop, not a budget. Warn at 80 %, hard trip at 100 %.
+A warning logs `BUDGET` on the orchestrator's stream and writes `leads/<id>/BUDGET_WARNED`; the
+PreToolUse gate attaches a one-time `soma:` note to the lead's next allowed tool call and renames the
+flag to `BUDGET_WARNED.delivered`, and teammates never get it. A trip writes
+`leads/<id>/BUDGET_TRIPPED`, which the PreToolUse gate reads to deny every tool except the soma bus —
+so a tripped lead can still file `COMPLETED` or `ERROR`, and nothing else.
+A lead is priced at the class pinned at enqueue when soma.json defines it, else at the class its
+newest `HARNESS` report reserves, else at `standard`; README's budget section has the exact rule
+and when `HARNESS_DEFAULTED` fires.
 
 ### Config keys that are declared and read by nothing
 
@@ -546,7 +554,11 @@ soma enqueue --file tasks.json
 `tasks.json` is a **JSON array** (an object keyed by id is the likely mistake and is refused by
 name). Each row needs at least `id`, matching `^[a-z][a-z0-9-]{0,63}$` — it becomes a directory
 name, a tmux target and an event stream, so nothing else is admitted. Fields that survive into the
-fleet row: `id`, `title`, `repo`, `source`, `brief`, `base_branch`, `budget_class`.
+fleet row: `id`, `title`, `repo`, `source`, `brief`, `base_branch`, `budget_class`, and
+`budget_override`, a copy of `budget_class` that pins the breaker to it. This verb stores the class
+as the file gives it and does not check that soma.json defines it (`soma_enqueue` does). One it does
+not define is passed over and `HARNESS_DEFAULTED` says so once: the lead is priced by its harness, or
+at `standard` before it declares one.
 
 ```json
 [
