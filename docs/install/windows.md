@@ -113,6 +113,7 @@ Open a new WSL terminal so nvm loads, then:
 
 ```bash
 nvm install 24
+nvm alias default 24   # otherwise a new terminal goes back to any older default
 node -v            # must print v24.x or newer
 which node         # must NOT start with /mnt/c/
 ```
@@ -126,6 +127,10 @@ curl -fsSL https://claude.ai/install.sh | bash
 claude --version
 which claude       # must NOT start with /mnt/c/
 ```
+
+If you installed Claude Code earlier with `npm install -g`, the native installer migrates it and
+removes the npm copy without asking. `which claude` must then print a path ending in
+`.local/bin/claude`.
 
 The Claude Code configuration inside WSL is separate from any native Windows installation, so log
 in here even if you already use Claude Code on Windows. Run `claude` and follow the prompts. In
@@ -145,6 +150,7 @@ check there for updates.
   && sudo mkdir -p -m 755 /etc/apt/keyrings \
   && out=$(mktemp) && wget -nv -O$out https://cli.github.com/packages/githubcli-archive-keyring.gpg \
   && cat $out | sudo tee /etc/apt/keyrings/githubcli-archive-keyring.gpg > /dev/null \
+  && rm -f $out \
   && sudo chmod go+r /etc/apt/keyrings/githubcli-archive-keyring.gpg \
   && sudo mkdir -p -m 755 /etc/apt/sources.list.d \
   && echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null \
@@ -165,7 +171,8 @@ Finally, check that every tool resolves inside the distribution:
 which node npm npx git gh tmux claude
 ```
 
-None of those paths should start with `/mnt/c/`.
+None of those paths should start with `/mnt/c/`, and `node -v` in a new terminal must still print
+v24.
 
 ## 3. Get claude-soma-lite
 
@@ -193,6 +200,22 @@ Node 20 or older, which finds no test files and prints no totals. On Node 22 the
 Code transcripts and can fail on a machine whose Claude Code writes a token-usage field soma does
 not know yet (*the operator's live transcripts carry no usage field this module does not know*).
 That failure is about your Claude Code version, not your install.
+
+On Linux, including WSL2, `npm test` currently has known failures that come from the test
+fixtures, not from your install. Expect up to four more:
+
+- *the leads root is matched with the state root symlinks resolved, not as configured* assumes
+  macOS's symlinked `$TMPDIR`
+  ([issue 31](https://github.com/techfreakworm/claude-soma-lite/issues/31)).
+- *a holder whose lock was taken over does not delete its successor on the way out*, *the
+  checkpoint lock releases the lock it published, not whatever holds that name* and *a takeover
+  unlinks the file it judged, or nothing at all* assume a deleted file's inode number is not
+  reused at once, and ext4 reuses it
+  ([issue 30](https://github.com/techfreakworm/claude-soma-lite/issues/30)).
+
+*the write-idiom scan stays linear on the shapes that made it quadratic* is a timing test and can
+also fail on a busy machine
+([issue 33](https://github.com/techfreakworm/claude-soma-lite/issues/33)).
 
 ## 4. Add the `soma` wrapper
 
@@ -231,6 +254,11 @@ source ~/.bashrc
 type soma          # should say: soma is a function
 soma help          # prints the usage text
 ```
+
+The function lives in `~/.bashrc`, so only interactive shells see it. Ubuntu's `.bashrc` returns
+early for a non-interactive shell, so a command run over `ssh`, a cron job or a script has no
+`soma`. A script should call `"$SOMA_NODE_DIR/node" "$SOMA_REPO/bin/soma.mjs"` with the same
+`PATH` and `SOMA_HOME` as the function.
 
 > If you already have an `alias soma=…`, delete it first. A shell that expands the alias inside
 > the function definition fails with a parse error.
@@ -335,8 +363,9 @@ Each run makes two small, billed Claude calls (a `claude -p` ping and a short ha
 `gh auth status`, and does one `git fetch --dry-run` per configured repo. It needs network access,
 and each run costs a few cents.
 
-**What a healthy fresh install looks like.** Run from a plain terminal before any lead has started,
-expect **no `FAIL` rows** and these `????` rows:
+**What a healthy fresh install looks like.** Once `claude` and `gh` are logged in (step 2), run
+doctor from a plain terminal before any lead has started, and expect **no `FAIL` rows** and these
+`????` rows:
 
 | row | why it is unobserved |
 |---|---|
@@ -348,6 +377,10 @@ expect **no `FAIL` rows** and these `????` rows:
 | `lead mcp single-server` | no lead exists yet |
 
 So the best verdict you will see is `INCOMPLETE`, never `PASS`. That is expected.
+
+Before you log in, `claude auth` and `gh auth` read `FAIL`, and a seventh row is unobserved:
+`claude cd-compound read runs` (*no Bash tool_use in the transcript*), because a Claude Code that
+is not logged in never runs the probe's command. It reads `ok` once `claude` is logged in.
 
 **Once a lead exists, expect one `FAIL`.** `lead mcp single-server` requires a lead's MCP config to
 name exactly one server, `soma`. Leads have also been given the stateless sequential-thinking
@@ -449,6 +482,12 @@ Claude Code upgrade.
   in `/etc/wsl.conf`, see [Microsoft: WSL configuration](https://learn.microsoft.com/en-us/windows/wsl/wsl-config)).
   If you turned `appendWindowsPath` off, `powershell.exe` is not found and doctor's `notifier` row
   fails. Claude Code's troubleshooting page also advises against turning it off.
+- **Shells that arrive over SSH have no Windows `PATH`.** WSL appends it only to processes started
+  through `wsl.exe` or Windows Terminal, not to an `sshd` session (plain SSH, VS Code Remote-SSH
+  and the like), even though interop itself works there. In such a session `which powershell.exe`
+  finds nothing, doctor's `notifier` row fails, and a watchdog started from it shows no toasts.
+  Start `soma up` from a Windows Terminal tab, or append
+  `/mnt/c/Windows/System32/WindowsPowerShell/v1.0` to `PATH` in the wrapper.
 - **The Windows `PATH` can shadow Linux tools.** Because the Windows `PATH` is appended, a tool you
   forgot to install inside WSL can silently resolve to its Windows build. Re-run
   `which node npm npx git gh tmux claude` after any change.

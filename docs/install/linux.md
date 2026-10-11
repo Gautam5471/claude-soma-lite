@@ -93,6 +93,7 @@ Open a new terminal so nvm loads, then:
 
 ```bash
 nvm install 24
+nvm alias default 24   # otherwise a new terminal goes back to any older default
 node -v            # must print v24.x or newer
 ```
 
@@ -104,6 +105,10 @@ node -v            # must print v24.x or newer
 curl -fsSL https://claude.ai/install.sh | bash
 claude --version
 ```
+
+If you installed Claude Code earlier with `npm install -g`, the native installer migrates it and
+removes the npm copy without asking. `which claude` must then print a path ending in
+`.local/bin/claude`.
 
 Log in by running `claude` once and following the prompts. On a machine without a browser (over
 SSH, for example), the browser on your own computer shows a code after you sign in; paste it at
@@ -121,6 +126,7 @@ check there for updates.
   && sudo mkdir -p -m 755 /etc/apt/keyrings \
   && out=$(mktemp) && wget -nv -O$out https://cli.github.com/packages/githubcli-archive-keyring.gpg \
   && cat $out | sudo tee /etc/apt/keyrings/githubcli-archive-keyring.gpg > /dev/null \
+  && rm -f $out \
   && sudo chmod go+r /etc/apt/keyrings/githubcli-archive-keyring.gpg \
   && sudo mkdir -p -m 755 /etc/apt/sources.list.d \
   && echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null \
@@ -166,6 +172,22 @@ not know yet (*the operator's live transcripts carry no usage field this module 
 That failure is about your Claude Code version, not your install. Tests that need tmux or git skip
 themselves when the tool is missing.
 
+On Linux, `npm test` currently has known failures that come from the test fixtures, not from your
+install. Expect up to four more:
+
+- *the leads root is matched with the state root symlinks resolved, not as configured* assumes
+  macOS's symlinked `$TMPDIR`
+  ([issue 31](https://github.com/techfreakworm/claude-soma-lite/issues/31)).
+- *a holder whose lock was taken over does not delete its successor on the way out*, *the
+  checkpoint lock releases the lock it published, not whatever holds that name* and *a takeover
+  unlinks the file it judged, or nothing at all* assume a deleted file's inode number is not
+  reused at once. ext4 reuses it, so they fail there
+  ([issue 30](https://github.com/techfreakworm/claude-soma-lite/issues/30)).
+
+*the write-idiom scan stays linear on the shapes that made it quadratic* is a timing test and can
+also fail on a busy machine
+([issue 33](https://github.com/techfreakworm/claude-soma-lite/issues/33)).
+
 ## 3. Add the `soma` wrapper
 
 Do not run `soma` bare. Two things must be pinned, and both have caused real failures:
@@ -203,6 +225,11 @@ source ~/.bashrc
 type soma          # should say: soma is a function
 soma help          # prints the usage text
 ```
+
+The function lives in your shell rc file, so only interactive shells see it. Ubuntu's `.bashrc`
+returns early for a non-interactive shell, so a command run over `ssh`, a cron job or a script has
+no `soma`. A script should call `"$SOMA_NODE_DIR/node" "$SOMA_REPO/bin/soma.mjs"` with the same
+`PATH` and `SOMA_HOME` as the function.
 
 > If you already have an `alias soma=…`, delete it first. A shell that expands the alias inside
 > the function definition fails with a parse error.
@@ -304,8 +331,9 @@ Each run makes two small, billed Claude calls (a `claude -p` ping and a short ha
 `gh auth status`, and does one `git fetch --dry-run` per configured repo. It needs network access,
 and each run costs a few cents.
 
-**What a healthy fresh install looks like.** Run from a plain terminal before any lead has started,
-expect **no `FAIL` rows** and these `????` rows:
+**What a healthy fresh install looks like.** Once `claude` and `gh` are logged in (step 1), run
+doctor from a plain terminal before any lead has started, and expect **no `FAIL` rows** and these
+`????` rows:
 
 | row | why it is unobserved |
 |---|---|
@@ -317,6 +345,10 @@ expect **no `FAIL` rows** and these `????` rows:
 | `lead mcp single-server` | no lead exists yet |
 
 So the best verdict you will see is `INCOMPLETE`, never `PASS`. That is expected.
+
+Before you log in, `claude auth` and `gh auth` read `FAIL`, and a seventh row is unobserved:
+`claude cd-compound read runs` (*no Bash tool_use in the transcript*), because a Claude Code that
+is not logged in never runs the probe's command. It reads `ok` once `claude` is logged in.
 
 **Once a lead exists, expect one `FAIL`.** `lead mcp single-server` requires a lead's MCP config to
 name exactly one server, `soma`. Leads have also been given the stateless sequential-thinking

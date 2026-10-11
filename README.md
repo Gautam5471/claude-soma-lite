@@ -299,6 +299,10 @@ soma() {
 }
 ```
 
+Only interactive shells read the rc file, so scripts, cron jobs and commands run over `ssh` do not
+see the function; call `"$SOMA_NODE_DIR/node" "$SOMA_REPO/bin/soma.mjs"` there, with the same
+`PATH` and `SOMA_HOME`.
+
 A minimal `tasks.json`:
 
 ```json
