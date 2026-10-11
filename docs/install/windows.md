@@ -407,25 +407,9 @@ Go back to step 6.
 
 Stay at the terminal for this. It is the use RUNBOOK §11 says the project is ready for.
 
-1. **Queue one small task.**
+Do all of it in a Windows Terminal Ubuntu tab, not over SSH (see [WSL caveats](#wsl-caveats)).
 
-   ```bash
-   cat > /tmp/tasks.json <<'JSON'
-   [
-     { "id": "my-task-1",
-       "title": "one sentence",
-       "repo": "my-repo",
-       "brief": "What done looks like, how to check it, and what to leave alone." }
-   ]
-   JSON
-   soma enqueue --file /tmp/tasks.json
-   ```
-
-   Ids must match `^[a-z][a-z0-9-]{0,63}$`. Invalid and duplicate rows are skipped and counted, not
-   fatal, so compare the printed count with what you sent. Put the verify command inside `brief`:
-   a separate `verify_hint` field is dropped at enqueue.
-
-2. **Open the queue.**
+1. **Open the queue.**
 
    ```bash
    soma up
@@ -435,22 +419,18 @@ Stay at the terminal for this. It is the use RUNBOOK §11 says the project is re
    and it refuses to run without a terminal. Do **not** use `--canary`: it cannot pass on this
    build.
 
-3. **Watch.**
-
-   ```bash
-   soma status
-   soma peek my-task-1 --lines 60
-   soma digest --lines 40      # read-only: consumes nothing
-   soma attach my-task-1       # your terminal on the lead's pane; detach with your tmux prefix, then d
-   ```
-
-4. **Start the orchestrator inside soma's own tmux server, and promote it.** In the WSL
-   terminal (for example a Windows Terminal Ubuntu tab), run:
+2. **Start the orchestrator inside soma's own tmux server, and promote it.** In the same
+   Windows Terminal Ubuntu tab, run:
 
    ```bash
    tmux -L soma new-session -s orchestrator
    claude                      # in the new tmux window; then type /soma-promote
    ```
+
+   Keep this order: the tmux session first, `claude` inside it, then `/soma-promote`. Promotion
+   records where the session is at that moment. A session promoted outside tmux, then moved or
+   resumed into the tmux window, keeps desktop-notification-only wake-ups. If that happened, run
+   `/soma-promote` again inside the tmux window.
 
    Inside soma's tmux server, a lead's urgent report reaches this session as a live keystroke.
    Detach with your tmux prefix (Ctrl-b by default), then `d`; reattach with
@@ -472,7 +452,47 @@ Stay at the terminal for this. It is the use RUNBOOK §11 says the project is re
 > another socket, such as `soma2`'s, start the orchestrator outside tmux: on this build, leads
 > send every wake-up to the default `soma` server ([issue #1](https://github.com/techfreakworm/claude-soma-lite/issues/1)).
 
-5. **Stop.** `soma down` stops the watchdog only. Running leads keep going, unsupervised, until you
+3. **Check the promotion.** From a second Ubuntu tab, or after detaching:
+
+   ```bash
+   soma status
+   ```
+
+   The `orchestrator:` line, `orchestrator: <id> (seq N, wake tmux, heartbeat …)`, must say
+   `wake tmux`. `wake notify` means the session was promoted outside soma's tmux server: run
+   `/soma-promote` again from inside it.
+
+4. **Queue one small task.**
+
+   ```bash
+   cat > /tmp/tasks.json <<'JSON'
+   [
+     { "id": "my-task-1",
+       "title": "one sentence",
+       "repo": "my-repo",
+       "brief": "What done looks like, how to check it, and what to leave alone." }
+   ]
+   JSON
+   soma enqueue --file /tmp/tasks.json
+   ```
+
+   Ids must match `^[a-z][a-z0-9-]{0,63}$`. Invalid and duplicate rows are skipped and counted, not
+   fatal, so compare the printed count with what you sent. Put the verify command inside `brief`:
+   a separate `verify_hint` field is dropped at enqueue.
+
+5. **Watch.**
+
+   ```bash
+   soma status
+   soma peek my-task-1 --lines 60
+   soma digest --lines 40      # read-only: consumes nothing
+   soma attach my-task-1       # your terminal on the lead's pane; detach with your tmux prefix, then d
+   ```
+
+   Lead sessions live on soma's tmux server, so a plain `tmux attach` to `lead-<id>` finds
+   nothing. Use `soma attach <lead>`, or `tmux -L soma attach -t lead-<id>`.
+
+6. **Stop.** `soma down` stops the watchdog only. Running leads keep going, unsupervised, until you
    `soma kill <lead>` them.
 
 Before you trust the fleet with more than this, establish the bring-up invariants by hand
@@ -562,13 +582,14 @@ Doctor
 - [ ] notifier: ok / FAIL (and the path it found for powershell.exe)
 
 First run
-- [ ] soma enqueue printed: queued ___ skipped ___
 - [ ] soma up showed the projection and asked for "yes"
 - [ ] watchdog line after "yes" (copy it):
+- [ ] /soma-promote in a fresh claude session inside tmux -L soma: adopted true / false
+- [ ] soma_inbox, soma_send and the other control tools appeared after promotion (yes / no / next turn)
+- [ ] soma status orchestrator line said: wake tmux / wake notify
+- [ ] soma enqueue printed: queued ___ skipped ___
 - [ ] the lead appeared in soma status (STATUS / LIVE / PANE columns):
 - [ ] a Windows toast appeared (yes / no / which event):
-- [ ] /soma-promote in a fresh claude session: adopted true / false
-- [ ] soma_inbox, soma_send and the other control tools appeared after promotion (yes / no / next turn)
 - [ ] the lead reported STARTED and HARNESS (check soma digest)
 - [ ] a teammate pushed the soma/<id> branch (yes / no / error)
 - [ ] a draft PR was opened (link, or "no")

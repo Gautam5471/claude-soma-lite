@@ -274,14 +274,21 @@ JSON
 # 4. Check the machine. Read the rows, not only the exit code.
 soma doctor
 
-# 5. Queue a task and open the queue (type "yes" at the spend prompt)
-soma enqueue --file tasks.json
+# 5. Open the queue (type "yes" at the spend prompt)
 soma up
 
 # 6. Start the orchestrator inside soma's own tmux server (never your own tmux), then take
-#    over the fleet. Detach with Ctrl-b, then d; reattach: tmux -L soma attach -t orchestrator
+#    over the fleet. tmux first, then claude, then /soma-promote: a session promoted elsewhere
+#    and moved into tmux must run /soma-promote again there.
+#    Detach with Ctrl-b, then d; reattach: tmux -L soma attach -t orchestrator
 tmux -L soma new-session -s orchestrator
 claude                      # in the new tmux window; then type /soma-promote
+
+# 7. Check: the "orchestrator:" line must say "wake tmux", not "wake notify"
+soma status
+
+# 8. Queue a task. Watch a lead with soma attach <lead> (not a bare tmux attach)
+soma enqueue --file tasks.json
 ```
 
 Running the orchestrator in soma's tmux server is what lets a lead's wake-up arrive as a live
